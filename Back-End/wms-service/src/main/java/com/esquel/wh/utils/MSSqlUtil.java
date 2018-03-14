@@ -19,10 +19,7 @@ public class MSSqlUtil {
         
     public Connection getConnection(){
     	try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn=(Connection)DriverManager.getConnection(url,user,password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }

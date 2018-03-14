@@ -69,7 +69,7 @@ public class InquiryController {
 		return result;
 	}
 
-	@RequestMapping(path = "/checkTransDateFrozen", method = RequestMethod.GET)
+	@RequestMapping(path = "/checkTransDateFrozen", method = RequestMethod.POST, consumes = "application/json")
 	public ResultJsonModel<String> checkTransDate(@RequestBody String inputJson) {
 		ResultJsonModel<String> result = new ResultJsonModel<String>();
 

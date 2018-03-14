@@ -100,13 +100,13 @@
 			<version>${neo4j.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-graphql</artifactId>
-            <version>3.3.0.0</version>
-        </dependency>
-		
+
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-graphql</artifactId>
+			<version>3.3.0.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-java</artifactId>
@@ -156,6 +156,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- MSSql -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+		</dependency>
+		
 		<!--Drools -->
 		<dependency>
 			<groupId>org.drools</groupId>
