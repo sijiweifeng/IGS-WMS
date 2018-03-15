@@ -13,6 +13,7 @@ import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.repository.ProcessDefinitionQuery;
 import org.camunda.bpm.engine.task.Task;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,9 +24,14 @@ import com.esquel.wh.utils.Neo4jUtil;
 @RestController
 @RequestMapping("/Camunda")
 public class CamundaController extends WMSAbstractController {
+	
+	@Value("${com.esquel.wh.wms.database.path}")
+	private String path;
+	
 	@RequestMapping(path = "/getAllTask")
-	public ResultJsonModel<List<taskList>> getAllTask() {
-		Neo4jUtil db = Neo4jUtil.getInstance();
+	public ResultJsonModel<List<taskList>> getAllTask() {		
+		Neo4jUtil db = Neo4jUtil.getInstance(path);
+		
 		ResultJsonModel<List<taskList>> result = new ResultJsonModel<List<taskList>>();
 		List<Task> taskList = camundaProcessService.getTasks();
 		List<taskList> resultTask = new ArrayList<taskList>();

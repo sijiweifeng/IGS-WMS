@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,9 +29,13 @@ import static org.neo4j.helpers.collection.MapUtil.map;
 @RestController
 @RequestMapping("/Inquiry")
 public class InquiryController {
-
+	
+	@Value("${com.esquel.wh.wms.database.mysqlip}")
+	private String wmsMasterDB ;
+	
 	@RequestMapping(path = "/Search", method = RequestMethod.POST, consumes = "application/json")
 	public Map<String,List<Map>> Search(@RequestBody String query) {
+		
 		Neo4jUtil db = Neo4jUtil.getInstance();
 		Map<String, List<Map>> result = db.executeQuery(query,map());
 
@@ -110,7 +115,7 @@ public class InquiryController {
 				throw new Exception("Please input trans date.");
 			}
 
-			new WMSMasterDao().checkTransDateFrozen(type, factoryCode, transDate);
+			new WMSMasterDao(wmsMasterDB).checkTransDateFrozen(type, factoryCode, transDate);
 
 			result.setMessage("OK");
 			result.setTotal(1);

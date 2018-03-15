@@ -6,10 +6,26 @@ import java.util.List;
 import com.esquel.wh.utils.*;
 
 public class WMSMasterDao {
+	private String hostIP;
+	private String dbName;
+	private String user;
+	private String password;	
+	
+	public WMSMasterDao(String host){
+		this(host, "esqwms", "root", "123456");
+	}
+	
+	public WMSMasterDao(String host,String dbname,String user,String password){
+		this.hostIP = host;
+		this.dbName = dbname;
+		this.user = user;
+		this.password = password;
+	}
+	
 	public boolean checkTransDateFrozen(String type,String factoryCode,Date transDate) throws Exception {
 		try {
 			String status="";
-			MySqlUtil db = MySqlUtil.getInstance("localhost", "esqwms", "root", "123456") ;
+			MySqlUtil db = MySqlUtil.getInstance(this.hostIP, this.dbName, this.user, this.password) ;
 			List<Object[]> result_list = db.getBySql(  
 	                "select status from inv_month_end_hd where type=? and factoryCode=? and ? between startDate and endDate ", new Object[] {type,factoryCode,transDate});  
 			if(result_list==null || result_list.size()<=0) {

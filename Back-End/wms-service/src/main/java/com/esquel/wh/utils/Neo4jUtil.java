@@ -21,11 +21,11 @@ import org.neo4j.kernel.internal.GraphDatabaseAPI;
 import org.neo4j.logging.FormattedLog;
 import org.neo4j.logging.FormattedLogProvider;
 
+import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.GraphQL.Builder;
 import graphql.GraphQLError;
-import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.GraphQLSchema;
 
 public class Neo4jUtil {
@@ -33,10 +33,11 @@ public class Neo4jUtil {
 	private static FormattedLog log = FormattedLogProvider.toPrintWriter(new PrintWriter(System.out))
 			.getLog(Neo4jUtil.class);
 	private static GraphQL graphql;
-
-	private Neo4jUtil() {
+	
+	
+	private Neo4jUtil(String path) {
 		try {
-			File DB_PATH = new File("C:\\zhanghonl\\data\\databases\\WMSTest");
+			File DB_PATH = new File(path);
 			GraphDatabaseFactory dbFactory = new GraphDatabaseFactory();
 			db = dbFactory.newEmbeddedDatabase(DB_PATH);
 
@@ -56,11 +57,18 @@ public class Neo4jUtil {
 
 	public static Neo4jUtil getInstance() {
 		if (neo4j == null) {
-			neo4j = new Neo4jUtil();
+			neo4j = new Neo4jUtil("C:\\WMS\\data\\WMS");
 		}
 		return neo4j;
 	}
 
+	public static Neo4jUtil getInstance(String path){
+		if (neo4j == null) {
+			neo4j = new Neo4jUtil(path);
+		}
+		return neo4j;
+	}
+	
 	public Result execute(String query, Map json) {
 		Transaction tx = db.beginTx();
 		try {
@@ -94,14 +102,12 @@ public class Neo4jUtil {
 		System.out.println("query = " + query);
 		ExecutionResult result = null;
 		try {
-
-//			String resultStr = db.execute("MATCH (n:GRN) RETURN count(n) AS count").resultAsString();
-//			System.out.println(resultStr);
+			ExecutionInput.Builder executionInput = ExecutionInput.newExecutionInput();
+			executionInput.context(ctx);
+			executionInput.query(query);
 			
-			//graphql.schema.DataFetchingEnvironment.getFieldDefinition();
-			
-			// result = null;
-			result = graphql.execute(query, ctx, arguments);
+			//result = graphql.execute(query, ctx, arguments);
+			result = graphql.execute(executionInput);
 			Object data = result.getData();
 			System.out.println("data = " + data);
 			List<GraphQLError> errors = result.getErrors();
