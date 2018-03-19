@@ -33,10 +33,13 @@ public class InquiryController {
 	@Value("${com.esquel.wh.wms.database.mysqlip}")
 	private String wmsMasterDB ;
 	
+	@Value("${com.esquel.wh.wms.database.path}")
+	private String path;
+	
 	@RequestMapping(path = "/Search", method = RequestMethod.POST, consumes = "application/json")
 	public Map<String,List<Map>> Search(@RequestBody String query) {
 		
-		Neo4jUtil db = Neo4jUtil.getInstance();
+		Neo4jUtil db = Neo4jUtil.getInstance(path);
 		Map<String, List<Map>> result = db.executeQuery(query,map());
 
 		return result;

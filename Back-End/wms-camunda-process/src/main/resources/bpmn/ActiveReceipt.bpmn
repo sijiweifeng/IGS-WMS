@@ -1,122 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.11.2">
-  <bpmn:process id="GEG_GRN" isExecutable="true">
+  <bpmn:process id="Garment_Receipt" name="Garment Receipt" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_1gxp02b</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Scan_UCC" name="Lists detailed data for scanning(Form)" camunda:formKey="ListPage">
+    <bpmn:userTask id="Scan_UCC" name="Lists detailed data for scanning(Form)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="formName">ListPage</camunda:inputParameter>
+          <camunda:inputParameter name="AppFormKey"><![CDATA[ScanGarmentPage
+]]></camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1gxp02b</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_002z8ng</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0kixqq1</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1tzta1j" sourceRef="Recommend_Location" targetRef="Confirm_Location" />
     <bpmn:sequenceFlow id="SequenceFlow_1gxp02b" sourceRef="StartEvent_1" targetRef="Scan_UCC" />
+    <bpmn:sequenceFlow id="SequenceFlow_0qlcya4" sourceRef="Confirm_Location" targetRef="Print_Location" />
+    <bpmn:userTask id="Confirm_Location" name="Confirm Location(Form)">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="AppFormKey"><![CDATA[ConfirmLocationGarmentPage
+]]></camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1tzta1j</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0qlcya4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0kixqq1" sourceRef="Scan_UCC" targetRef="Recommend_Location" />
     <bpmn:endEvent id="EndEvent_0cfxr5g">
       <bpmn:incoming>SequenceFlow_0tcx2qo</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1ehgfv0</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0tcx2qo" sourceRef="Print_Location" targetRef="EndEvent_0cfxr5g" />
-    <bpmn:serviceTask id="Print_Location" name="Print Location Label(Process)" camunda:asyncBefore="true" camunda:delegateExpression="${printLabelDelegate}">
-      <bpmn:incoming>SequenceFlow_07zwvd3</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0tcx2qo</bpmn:outgoing>
+    <bpmn:serviceTask id="Recommend_Location" name="Recommend location(Process)" camunda:asyncBefore="true" camunda:delegateExpression="${RecommendLocationDelegate}">
+      <bpmn:incoming>SequenceFlow_0kixqq1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tzta1j</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0jq6np7">
-      <bpmn:incoming>SequenceFlow_002z8ng</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_07zwvd3</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_02j6jjg</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_002z8ng" sourceRef="Scan_UCC" targetRef="ExclusiveGateway_0jq6np7" />
-    <bpmn:sequenceFlow id="SequenceFlow_07zwvd3" sourceRef="ExclusiveGateway_0jq6np7" targetRef="Print_Location">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${print}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_02j6jjg" sourceRef="ExclusiveGateway_0jq6np7" targetRef="Print_Location2">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${print==false}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1ehgfv0" sourceRef="Print_Location2" targetRef="EndEvent_0cfxr5g" />
-    <bpmn:serviceTask id="Print_Location2" name="Gen File 2" camunda:asyncBefore="true" camunda:delegateExpression="${printLabelDelegate2}">
-      <bpmn:incoming>SequenceFlow_02j6jjg</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1ehgfv0</bpmn:outgoing>
+    <bpmn:serviceTask id="Print_Location" name="Print Location Label(Process)" camunda:delegateExpression="${PrintLocationLabelDelegate}">
+      <bpmn:incoming>SequenceFlow_0qlcya4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0tcx2qo</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="GEG_GRN">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Garment_Receipt">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="370" y="77" width="36" height="36" />
+        <dc:Bounds x="370" y="5" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="343" y="113" width="90" height="20" />
+          <dc:Bounds x="343" y="41" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_1q16udh_di" bpmnElement="Scan_UCC">
-        <dc:Bounds x="338" y="165" width="100" height="80" />
+        <dc:Bounds x="338" y="85" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1gxp02b_di" bpmnElement="SequenceFlow_1gxp02b">
-        <di:waypoint xsi:type="dc:Point" x="388" y="113" />
-        <di:waypoint xsi:type="dc:Point" x="388" y="165" />
+      <bpmndi:BPMNEdge id="SequenceFlow_1tzta1j_di" bpmnElement="SequenceFlow_1tzta1j">
+        <di:waypoint xsi:type="dc:Point" x="388" y="282" />
+        <di:waypoint xsi:type="dc:Point" x="388" y="309" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="358" y="133" width="90" height="12" />
+          <dc:Bounds x="358" y="289.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1gxp02b_di" bpmnElement="SequenceFlow_1gxp02b">
+        <di:waypoint xsi:type="dc:Point" x="388" y="41" />
+        <di:waypoint xsi:type="dc:Point" x="388" y="85" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="358" y="57" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qlcya4_di" bpmnElement="SequenceFlow_0qlcya4">
+        <di:waypoint xsi:type="dc:Point" x="388" y="389" />
+        <di:waypoint xsi:type="dc:Point" x="388" y="418" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="358" y="397.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0wrhewh_di" bpmnElement="Confirm_Location">
+        <dc:Bounds x="338" y="309" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0kixqq1_di" bpmnElement="SequenceFlow_0kixqq1">
+        <di:waypoint xsi:type="dc:Point" x="388" y="165" />
+        <di:waypoint xsi:type="dc:Point" x="388" y="202" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="358" y="177.5" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0cfxr5g_di" bpmnElement="EndEvent_0cfxr5g">
-        <dc:Bounds x="370" y="600" width="36" height="36" />
+        <dc:Bounds x="370" y="536" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="343" y="640" width="90" height="12" />
+          <dc:Bounds x="343" y="576" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0tcx2qo_di" bpmnElement="SequenceFlow_0tcx2qo">
-        <di:waypoint xsi:type="dc:Point" x="322" y="487" />
-        <di:waypoint xsi:type="dc:Point" x="322" y="538" />
-        <di:waypoint xsi:type="dc:Point" x="388" y="538" />
-        <di:waypoint xsi:type="dc:Point" x="388" y="600" />
+        <di:waypoint xsi:type="dc:Point" x="388" y="498" />
+        <di:waypoint xsi:type="dc:Point" x="388" y="536" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="310" y="517" width="90" height="12" />
+          <dc:Bounds x="358" y="511" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_14lsqxj_di" bpmnElement="Print_Location">
-        <dc:Bounds x="272" y="407" width="100" height="80" />
+      <bpmndi:BPMNShape id="ServiceTask_08osefk_di" bpmnElement="Recommend_Location">
+        <dc:Bounds x="338" y="202" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ExclusiveGateway_0jq6np7_di" bpmnElement="ExclusiveGateway_0jq6np7" isMarkerVisible="true">
-        <dc:Bounds x="363" y="314" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="388" y="368" width="0" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_002z8ng_di" bpmnElement="SequenceFlow_002z8ng">
-        <di:waypoint xsi:type="dc:Point" x="388" y="245" />
-        <di:waypoint xsi:type="dc:Point" x="388" y="314" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="403" y="273.5" width="0" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_07zwvd3_di" bpmnElement="SequenceFlow_07zwvd3">
-        <di:waypoint xsi:type="dc:Point" x="363" y="339" />
-        <di:waypoint xsi:type="dc:Point" x="322" y="339" />
-        <di:waypoint xsi:type="dc:Point" x="322" y="407" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="297.5" y="318" width="90" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_02j6jjg_di" bpmnElement="SequenceFlow_02j6jjg">
-        <di:waypoint xsi:type="dc:Point" x="413" y="339" />
-        <di:waypoint xsi:type="dc:Point" x="449" y="339" />
-        <di:waypoint xsi:type="dc:Point" x="449" y="407" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="386" y="318" width="90" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1ehgfv0_di" bpmnElement="SequenceFlow_1ehgfv0">
-        <di:waypoint xsi:type="dc:Point" x="449" y="487" />
-        <di:waypoint xsi:type="dc:Point" x="449" y="538" />
-        <di:waypoint xsi:type="dc:Point" x="388" y="538" />
-        <di:waypoint xsi:type="dc:Point" x="388" y="600" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="373.5" y="517" width="90" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0nbm7b5_di" bpmnElement="Print_Location2">
-        <dc:Bounds x="399" y="407" width="100" height="80" />
+      <bpmndi:BPMNShape id="ServiceTask_1i8rvtm_di" bpmnElement="Print_Location">
+        <dc:Bounds x="338" y="418" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

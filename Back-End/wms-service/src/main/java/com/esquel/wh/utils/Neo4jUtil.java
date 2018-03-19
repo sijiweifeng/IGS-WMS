@@ -34,9 +34,9 @@ public class Neo4jUtil {
 			.getLog(Neo4jUtil.class);
 	private static GraphQL graphql;
 	
-	
 	private Neo4jUtil(String path) {
 		try {
+			System.out.println(path);
 			File DB_PATH = new File(path);
 			GraphDatabaseFactory dbFactory = new GraphDatabaseFactory();
 			db = dbFactory.newEmbeddedDatabase(DB_PATH);
@@ -47,6 +47,7 @@ public class Neo4jUtil {
 			GraphQLSchema graphQLSchema = GraphQLSchemaBuilder.buildSchema(db);
 			Builder builder = new Builder(graphQLSchema);
 			graphql = builder.build();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,17 +71,12 @@ public class Neo4jUtil {
 	}
 	
 	public Result execute(String query, Map json) {
-		Transaction tx = db.beginTx();
 		try {
 			Result result = db.execute(query, java.util.Collections.singletonMap("json", (Object) json));
-			tx.success();
 			return result;
 		} catch (Exception ex) {
-			tx.failure();
 			throw ex;
-		} finally {
-			tx.close();
-		}
+		} 
 	}
 
 	public Node getNode(Long id) {
@@ -122,4 +118,9 @@ public class Neo4jUtil {
 		System.out.println("extensions = " + ctx.getBackLog());
 		return result;
 	}
+
+	public Transaction getTransaction() {
+		return db.beginTx();
+	}
+
 }

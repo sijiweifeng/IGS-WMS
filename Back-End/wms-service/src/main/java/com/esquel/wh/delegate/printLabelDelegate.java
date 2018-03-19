@@ -29,7 +29,7 @@ public class printLabelDelegate implements JavaDelegate {
 	    LOGGER.info("hello {}", execution);
 	    Date d = new Date();
 	    Random random = new Random();
-	    createFile("File1" + Long.toString(d.getTime()), d.toLocaleString() + random.nextInt() + "");
+	    createFile("File1" + Long.toString(d.getTime()), random.nextInt() + "");
 	    System.out.println("print label!");
 	  }
 	  

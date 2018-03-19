@@ -11,8 +11,6 @@ import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.esquel.wh.camunda.process.constant.ProcessKey;
-
 @Service
 public class CamundaProcessService {
 	@Autowired
@@ -24,12 +22,12 @@ public class CamundaProcessService {
 	@Autowired
 	private TaskService taskService;
 
-	public String startProcess(ProcessKey processKey) {
+	public String startProcess(String processKey) {
 		return startProcess(processKey, null);
 	}
 
-	public String startProcess(ProcessKey processKey, Map<String, Object> variables) {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processKey.name(), variables);
+	public String startProcess(String processKey, Map<String, Object> variables) {
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processKey, variables);
 		return processInstance.getId();
 	}
 

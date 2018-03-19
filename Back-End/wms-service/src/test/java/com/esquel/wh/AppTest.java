@@ -1,38 +1,18 @@
 package com.esquel.wh;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+import com.esquel.wh.model.WorkflowRule;
+import com.esquel.wh.utils.DroolsRulesUtil;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+public class AppTest{
+	@Test
+    public void OperationalRules() throws Exception {
+		WorkflowRule rule = new WorkflowRule("GEG","Garment","KBR");
+		DroolsRulesUtil<WorkflowRule> rules = new DroolsRulesUtil<WorkflowRule>();
+		rules.setRuleExclePath("com/esquel/wh/workflowRule.xls");
+		rules.setRuleObject(rule);
+		rules.OperationalRules();
+		System.out.println(rule.getWorkflowKey());
     }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+    
 }
