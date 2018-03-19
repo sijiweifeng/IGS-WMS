@@ -1,0 +1,195 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>  {{"Active Issue" | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      {{"Active Issue" | translate }}
+    </ion-card-header>
+
+
+    <div class="input-field">
+      <ion-item>
+        <ion-label color="primary">{{"Store" | translate }}</ion-label>
+        <ion-select [(ngModel)]="store">
+          <ion-option *ngFor="let item of activeStore">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item>
+        <ion-label color="primary">JO</ion-label>
+        <ion-input [(ngModel)]="JO" ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item >
+        <ion-label color="primary">BPO</ion-label>
+        <ion-input [(ngModel)]="BPO"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item >
+        <ion-label color="primary">{{"Customer" | translate }}</ion-label>
+        <ion-select>
+          <ion-option *ngFor="let item of activeCustomer">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+
+
+    <ion-item>
+      <button ion-button>{{"Reset" | translate }}</button>
+      <button ion-button>{{"Import" | translate }}</button>
+      <button ion-button>{{"Delete" | translate }}</button>
+      <button ion-button>{{"Query" | translate }}</button>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      {{"Check Table" | translate }}
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <div class="header-row">
+        <div class="issuetable-header-check">
+          {{"Check" | translate }}
+
+        </div>
+
+        <div class="issuetable-header">
+          {{"Store" | translate }}
+
+        </div>
+
+        <div class="issuetable-header">
+          {{"Customer" | translate }}
+
+        </div>
+
+        <div class="issuetable-header">
+          {{"Name" | translate }}
+
+        </div>
+
+        <div class="issuetable-header">
+          JO No
+        </div>
+
+        <div class="issuetable-header">
+          {{"Buyer" | translate }} PO
+        </div>
+
+        <div class="issuetable-header">
+          {{"Style" | translate }}
+
+        </div>
+
+        <div class="issuetable-header">
+          {{"Style Rev" | translate }}
+
+        </div>
+
+        <div class="issuetable-header" style="width:12%">
+          {{"Style Description" | translate }}
+        </div>
+
+        <div class="issuetable-header">
+          CT No
+        </div>
+
+        <div class="issuetable-header">
+          {{"Carton No" | translate }}
+        </div>
+
+        <div class="issuetable-header">
+          {{"Quantity" | translate }}
+        </div>
+
+      </div>
+      <br>
+      <hr>
+      <br>
+      <div class="content-row">
+        <!--using ngFOr-->
+        <div class="issuetable-header-check">
+          <ion-checkbox> </ion-checkbox>
+        </div>
+
+        <div class="issuetable-header">
+          Store A
+        </div>
+
+        <div class="issuetable-header">
+          CM2839
+        </div>
+
+        <div class="issuetable-header">
+          Calvin Klein
+        </div>
+
+        <div class="issuetable-header">
+          JO4334
+        </div>
+
+
+        <div class="issuetable-header">
+          BU8475
+        </div>
+
+        <div class="issuetable-header">
+          StyleA
+        </div>
+
+        <div class="issuetable-header">
+          34
+        </div>
+
+        <div class="issuetable-header" style="width:12%">
+          Descript..
+        </div>
+
+        <div class="issuetable-header">
+          ST343
+        </div>
+
+        <div class="issuetable-header">
+          23
+        </div>
+
+        <div class="issuetable-header">
+          343pcs
+        </div>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+  <div style="float:right">
+    <button ion-button>
+      {{ "Close" | translate}}
+    </button>
+
+    <button ion-button>
+      {{ "Confirm" | translate}}
+    </button>
+    <div style="float:right">
+            <button ion-button color="dark" (click)="changeLanguage('zh-tw')">中</button>
+            <button ion-button color="dark" (click)="changeLanguage('en')">Eng</button>
+    </div>
+  </div>
+</ion-content>

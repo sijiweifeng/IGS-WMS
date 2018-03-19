@@ -1,0 +1,56 @@
+page-scan-garment {
+overflow: hidden;
+background-color: transparent;
+
+
+}
+
+.icon{
+  font-size: 45px;
+}
+
+ion-page.page-list{
+  background-image: url('../../assets/imgs/garment-bg.jpg');
+}
+
+ion-page.page-list > ion-content{
+  background-color: transparent;
+}
+
+.item-built{
+  background:#fff;
+}
+
+.search-icon-style{
+  font-size:40px;
+  padding-top:30px;
+}
+
+.list-card-item-style{
+  margin:0 0 0 0;
+  width:100%;
+  background: rgba(158, 158, 158, 0.1);
+}
+
+.header-style{
+  position: fixed;
+  top:5%;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.scroll-list-style{
+  position:fixed;
+  width:100%;
+  top:30%;
+  bottom:12%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.bottomfooter{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}

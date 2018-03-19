@@ -1,0 +1,212 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h2>{{ "QA" | translate }}</h2>
+
+
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+
+  <ion-card>
+    <ion-card-header>
+      {{ "QA" | translate}}
+    </ion-card-header>
+
+    <div class="input-field">
+      <ion-item>
+        <ion-label color="primary">JO</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item >
+        <ion-label color="primary">BPO</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item >
+        <ion-label color="primary"> {{"Customer" | translate}} </ion-label>
+        <!-- <ion-input></ion-input> -->
+        <ion-select [(ngModel)]="customer">
+          <ion-option *ngFor="let item of QAcustomer">{{item.name}} </ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+
+    <div>
+      <div class="input-field">
+        <ion-item>
+          <ion-label color="primary">{{"Store"|translate}}</ion-label>
+          <ion-select [(ngModel)]="store">
+            <ion-option *ngFor="let item of QAstore">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <div class="input-field">
+        <ion-item>
+          <ion-label>Per Color/Size</ion-label>
+          <ion-checkbox [(ngModel)]="percolorsize"></ion-checkbox>
+        </ion-item>
+      </div>
+
+      <div class="input-field">
+        <ion-item>
+          <ion-label color="primary"> {{"Carton No" | translate}}</ion-label>
+          <ion-input type="number" min="0" [(ngModel)]="carton"></ion-input>
+        </ion-item>
+      </div>
+
+    </div>
+
+    <div>
+      <ion-item >
+        <button ion-button>{{ "Reset" | translate}}</button>
+        <button ion-button>{{"Import" | translate}} Excel</button>
+        <button ion-button>{{"Delete" | translate}} </button>
+        <button ion-button>{{"Query" | translate}}</button>
+      </ion-item>
+    </div>
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      {{ "Check Table" | translate}}
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <div class="header-row">
+        <div class="table-header">
+          {{ "Check" | translate}}
+        </div>
+
+        <div class="table-header">
+          {{ "Store" | translate}}
+        </div>
+
+        <div class="table-header">
+          {{ "Customer" | translate }}
+        </div>
+
+        <div class="table-header">
+          {{"Name" | translate}}
+        </div>
+
+        <div class="table-header">
+          {{"Carton No" | translate}}
+        </div>
+
+        <div class="table-header">
+          UCC
+        </div>
+
+        <div class="table-header">
+          {{"Quantity" | translate }}
+        </div>
+
+        <div class="table-header">
+          JO
+        </div>
+
+        <div class="table-header">
+          {{ "Buyer" | translate }} PO
+        </div>
+
+        <div class="table-header">
+          {{ "Style" | translate }}
+        </div>
+
+        <div class="table-header">
+          {{ "Style Rev" | translate }}
+        </div>
+
+        <div class="table-header" style="width:12%">
+          {{ "Style Description" | translate }}
+        </div>
+
+      </div>
+      <br>
+      <hr>
+      <br>
+      <div class="content-row">
+        <!--using ngFOr-->
+        <div class="table-header">
+          <ion-checkbox> </ion-checkbox>
+        </div>
+
+        <div class="table-header">
+          Store A
+        </div>
+
+        <div class="table-header">
+          CM2839
+        </div>
+
+        <div class="table-header">
+          Calvin Klein
+        </div>
+
+        <div class="table-header">
+          6
+        </div>
+
+
+        <div class="table-header">
+          GRN74359
+        </div>
+
+        <div class="table-header">
+          25000
+        </div>
+
+        <div class="table-header">
+          JO23874
+        </div>
+
+        <div class="table-header">
+          PO897348
+        </div>
+
+        <div class="table-header">
+          Style A
+        </div>
+
+        <div class="table-header">
+          Style B
+        </div>
+
+        <div class="table-header" style="width:12%">
+          Style Sttl...
+        </div>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+
+  <div style="float:right">
+    <button ion-button>
+      {{ "Close" | translate}}
+    </button>
+
+    <button ion-button>
+      {{ "Confirm" | translate}}
+    </button>
+    <div style="float:right">
+      <button ion-button color="dark" (click)="changeLanguage('zh-tw')">中</button>
+      <button ion-button color="dark" (click)="changeLanguage('en')">Eng</button>
+    </div>
+  </div>
+</ion-content>

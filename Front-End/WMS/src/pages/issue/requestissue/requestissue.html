@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ "View Past Record" | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <h2>
+        {{"View Past Record" | translate}}
+      </h2>
+    </ion-card-header>
+
+    <div class="input-field">
+      <ion-item>
+        {{"Trans Date" | translate}}: <input type="date">
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item>
+        {{"To" | translate}}: <input type="date">
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item>
+    <ion-label color="primary">{{"Store" | translate}}</ion-label>
+        <ion-select [(ngModel)]="store">
+          <ion-option *ngFor="let item of recordStore">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item>
+        <ion-label color="primary">JO</ion-label>
+        <ion-input fixed stlye="border:0px"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item >
+        <ion-label color="primary">BPO</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-field">
+      <ion-item >
+        <ion-label color="primary">{{"Customer" | translate}}</ion-label>
+        <ion-select>
+          <ion-option *ngFor="let item of recordCustomer">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <ion-item>
+      <button ion-button>{{"Reset" | translate}}</button>
+      <button ion-button>{{"Query" | translate}}</button>
+    </ion-item>
+  </ion-card>
+
+
+  <ion-card>
+
+    <ion-card-header>
+      {{"Record Table" | translate}}
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <div class="viewtable-header">
+           {{"Store" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+           {{"Trans Date" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+          {{"Trans Code" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+          {{"Doc No" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+          {{"Created By" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+          {{"Status" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+        JO
+      </div>
+
+      <div class="viewtable-header">
+        {{"Carton No" | translate}}
+      </div>
+
+      <div class="viewtable-header">
+        {{"Quantity" | translate}}
+      </div>
+
+
+      <br>
+      <hr>
+
+      <div class="content-row" *ngFor="let item of dataSet" (click)="determinePushPage(item)">
+        <!--using ngFOr-->
+        <div class="viewtable-header">
+          {{item.store}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.trans}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.transCode}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.docNo}}
+        </div>
+
+
+        <div class="viewtable-header">
+          {{item.creator}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.status}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.JO}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.cartons}}
+        </div>
+
+        <div class="viewtable-header">
+          {{item.Qty}}
+        </div>
+      </div>
+
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <div style="float:right">
+          <button ion-button color="dark" (click)="changeLanguage('zh-tw')">中</button>
+          <button ion-button color="dark" (click)="changeLanguage('en')">Eng</button>
+  </div>
+</ion-content>

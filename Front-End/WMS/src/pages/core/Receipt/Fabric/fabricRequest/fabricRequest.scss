@@ -1,0 +1,50 @@
+page-fabricRequest {
+overflow: hidden;
+  background: color($colors, light);
+
+}
+
+.icon{
+  font-size: 45px;
+}
+
+
+
+.item-built{
+  background:transparentize($color, 1);
+}
+
+.search-icon-style{
+  font-size:40px;
+  padding-top:30px;
+  background:transparentize($color,1);
+}
+
+.list-card-item-style{
+  margin:0 0 0 0;
+  width:100%;
+  background:transparentize($color,0.5);
+}
+
+.header-style{
+  position: fixed;
+  top:5%;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.scroll-list-style{
+  position:fixed;
+  width:100%;
+  top:16%;
+  bottom:12%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.bottomfooter{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}

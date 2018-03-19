@@ -1,0 +1,28 @@
+<ion-header class="universal-sheader">
+  <ion-navbar>
+
+    <ion-buttons start>
+      <button ion-button  menuToggle color="secondary">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>WMS</ion-title>
+
+
+    <ion-buttons end>
+      <button ion-button menuToggle color="secondary">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<div>
+
+      <ion-tabs id="tabs" tabsPlacement="bottom">
+        <ion-tab [root]="startWorkflowRoot" tabTitle="Start workflow" tabIcon="analytics"></ion-tab>
+        <ion-tab [root]="toDoListRoot" tabTitle="To do list" tabIcon="logo-buffer"></ion-tab>
+        <ion-tab [root]="settingRoot" tabTitle="Setting" tabIcon="cog"></ion-tab>
+      </ion-tabs>
+</div>

@@ -1,0 +1,23 @@
+Bullets Note: 
+- list items
+* conclusion
+^ user comment
+
+|---------------------------------------------------------------|
+|User Feedback MingLiWarehouse meeting1:2/8/2018     		|
+|---------------------------------------------------------------|
+|1. Mutex workflow process 			          	|
+|	- conflict if two users using               		|
+|                                                   		|
+|2. Definition							|
+|	- standard rule?					|
+|	- scan:problem						|
+|	- scan -> move location -> scan -> move location	|
+|	* process need to be confirmed				|
+|								|
+|3. Sequential and Parallel					|
+|	- small ? 						|
+|								|
+|**Feb -> confirm process	
+- ?有就是我想to do list, 里面的ITEM 能不能自定?格式.就是我???示跟出??示的?容不一定
+|---------------------------------------------------------------|

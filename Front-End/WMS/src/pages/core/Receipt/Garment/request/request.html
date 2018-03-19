@@ -1,0 +1,52 @@
+<ion-header class="universal-sheader">
+    <ion-navbar>
+
+        <ion-buttons start>
+            <button ion-button menuToggle color="secondary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        </ion-buttons>
+        <ion-title>WMS</ion-title>
+
+        <ion-buttons end>
+            <button ion-button menuToggle color="secondary">
+        <ion-icon name="search"></ion-icon>
+      </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="content">
+    <div class="header-style">
+        <ion-item class="item-built" style="width:90%;float:left;">
+            <ion-label floating color=font>Scan UCC for this GRN number</ion-label>
+            <ion-input type="text" [value]="enterInput" [(ngModel)]="enterInput" (keypress)='searchBarcode($event)'> </ion-input>
+        </ion-item>
+    </div>
+
+    <div class="scroll-list-style">
+        <ion-item class="list-card-item-style" *ngFor="let item of dataset1">
+            <ion-card>
+                <div style="float:left;padding:10px">
+                    <ion-icon class="icon" name="ios-checkmark-circle"></ion-icon>
+                </div>
+
+                <div style="float:left;padding:10px">
+                    <h3>{{item.ucc}}</h3>
+                    <strong>JO#</strong>:{{item.order.orderNo}} <strong>Qty:</strong>{{item.qty}}
+                </div>
+
+            </ion-card>
+        </ion-item>
+    </div>
+
+    <ion-footer class="footer">
+        <ion-toolbar align="middle">
+            <button ion-button (tap)="save()">Submit</button>
+            <button ion-button [navPush]="leavePage">Cancel</button>
+
+        </ion-toolbar>
+    </ion-footer>
+
+</ion-content>
