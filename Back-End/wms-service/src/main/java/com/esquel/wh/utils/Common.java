@@ -91,13 +91,13 @@ public class Common {
 					tmpNode.add(key);
 					nodeproperty.put(node, tmpNode);
 				}
-				if (key.equalsIgnoreCase(node + "Key")) {
+				if (key.equalsIgnoreCase("UniqueKey")) {
 					String tmpKeyNode = "";
 					if (nodeKey != null) {
-						tmpKeyNode = nodeKey.get(node + "Key");
+						tmpKeyNode = nodeKey.get(node + "UniqueKey");
 					}
 					if (tmpKeyNode == null || tmpKeyNode.equals("")) {
-						nodeKey.put(node + "Key", ((String) entry.getValue()).toLowerCase());
+						nodeKey.put(node + "UniqueKey", ((String) entry.getValue()).toLowerCase());
 					}
 				}
 			}

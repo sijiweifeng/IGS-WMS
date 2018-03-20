@@ -50,6 +50,7 @@ public class Neo4jUtil {
 			
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 	}

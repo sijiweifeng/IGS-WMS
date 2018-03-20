@@ -104,13 +104,13 @@ export class RequestPage {
           if (this.enterInput === this.waitItems[i].ucc) {
             this.dataset1.push(this.waitItems[i]);
             this.findFlag = true;
-            this.enterInput ="";
           }
         }
         if (!this.findFlag) {
           this.presentAlert();
         }
       }
+      this.enterInput ="";
     }
   }
 
@@ -140,7 +140,7 @@ export class RequestPage {
     console.log("save begin");
     let uuid = UUID.UUID();
     let jsonFile = AppConfig.getBackEndUrl() +  "/Receipt/Create";
-    let grn = { "receipt": [{ "receiptKey": "docNo","transCode":"KBR","transId": uuid,  "docNo": "GEG-G-GRN-" + new Date().getTime(), "reqUserId": "zhanghonl", "reqDate": this.getFormatDate(new Date().getTime()),"status":"D", "stock": this.dataset1 }] };
+    let grn = { "receipt": [{ "UniqueKey": "docNo","transCode":"KBR","transId": uuid,  "docNo": "GEG-G-GRN-" + new Date().getTime(), "reqUserId": "zhanghonl", "reqDate": this.getFormatDate(new Date().getTime()),"status":"D", "stock": this.dataset1 }] };
     console.log(grn);
     let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, "body": grn };
     this.httpclient.postData<any>(jsonDict).subscribe((itemGroup) => {

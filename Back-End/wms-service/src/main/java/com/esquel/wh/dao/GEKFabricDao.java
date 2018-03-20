@@ -35,7 +35,7 @@ public class GEKFabricDao {
 			while (resultSet.next()) {
 
 				OrderModel order = new OrderModel();
-				order.setOrderKey("OrderNo");
+				order.setUniqueKey("OrderNo");
 				order.setOrderNo(resultSet.getString("OrderNo"));
 
 				FabricProductModel product = new FabricProductModel();

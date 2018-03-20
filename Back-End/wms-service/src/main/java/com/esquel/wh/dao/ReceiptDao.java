@@ -53,6 +53,8 @@ public class ReceiptDao {
 					
 					WorkflowRule wr = new WorkflowRule("GEG","Garment",transCode);
 					DroolsRulesUtil<WorkflowRule> rule = new DroolsRulesUtil<WorkflowRule>();
+					rule.setRuleExclePath("com/esquel/wh/workflowRule.xls");
+					rule.setRuleObject(wr);
 					rule.OperationalRules();
 					
 					Map<String, Object> variables = new HashMap<String, Object>();
@@ -72,6 +74,8 @@ public class ReceiptDao {
 			e.printStackTrace();
 			trx.failure();
 			throw e;
-		}	
+		}finally {
+			trx.close();
+		}
 	}
 }

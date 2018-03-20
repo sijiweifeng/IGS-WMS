@@ -49,7 +49,7 @@ public class CamundaController extends WMSAbstractController {
 				if (variables.get("nodeID") != null && variables.get("MaterialType") != null) {
 					System.out.println("Process Key:" + pd.getKey() + " Node ID:" + variables.get("nodeID"));
 					Map<String, List<Map>> nd = db.executeQuery(
-							"query GRNQuery {GRN(_id:" + (long) variables.get("nodeID") + "){ docNo,_id} }", map());
+							"query GRNQuery {receipt(_id:" + (long) variables.get("nodeID") + "){ docNo,_id} }", map());
 					if (nd == null || nd.size() <= 0) {
 						continue;
 					}

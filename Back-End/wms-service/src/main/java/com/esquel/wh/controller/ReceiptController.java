@@ -93,7 +93,7 @@ public class ReceiptController extends WMSAbstractController {
 			Map.Entry entry = (Map.Entry) node.next();
 			String key = (String) entry.getKey();
 			List<String> valueList = (List<String>) entry.getValue();
-			String nodeKeyStr = nodeKey.get(key + "Key");
+			String nodeKeyStr = nodeKey.get(key + "UniqueKey");
 			String[] nodeKeyStrList = nodeKeyStr.split(";");
 			List<String> nodeKeyList = Arrays.asList(nodeKeyStrList);
 
@@ -155,7 +155,7 @@ public class ReceiptController extends WMSAbstractController {
 		ResultJsonModel<String> result = new ResultJsonModel<String>();
 		ReceiptDao recDao = new ReceiptDao();
 		try {
-			//recDao.doReceipt(neo4jDatabasePath, query, json, camundaProcessService);
+			recDao.doReceipt(neo4jDatabasePath, query, json, camundaProcessService);
 			result.setMessage("OK");
 			result.setTotal(1);
 			result.setResult("OK");

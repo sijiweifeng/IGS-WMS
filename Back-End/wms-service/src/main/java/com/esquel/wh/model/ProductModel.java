@@ -1,22 +1,130 @@
 package com.esquel.wh.model;
 
-public class ProductModel {
-	private String productKey;
-	private String productType;
-	private String custStyleNo;
-	private String colorCode;
-	private String sizeCode;
-	private String size1Code;
-	private String size2Code;
-	private String ESCMColorCode;
-	private String ESCMSizeCode1;
-	private String ESCMSizeCode2;
+import java.sql.Date;
 
-	public String getProductKey() {
-		return productKey;
+public class ProductModel {
+	private String id;
+	private String uniqueKey;
+	private String createdBy;
+	private Date createdDate;
+	private Date lastModifiedDate;
+	private String lastModifiedBy;	
+	private int revision;
+	private String custStyleNo;
+	private String styleNo;
+	private int styleRevNo;
+	private String custColorCode;
+	private String custSizeCode;
+	private String custSize1Code;
+	private String custSize2Code;
+	private String esqColorCode;
+	private String esqSizeCode1;
+	private String esqSizeCode2;
+	private String sku;
+	private String upc;
+	
+	public String getId() {
+		return id;
 	}
-	public void setProductKey(String productKey) {
-		this.productKey = productKey;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public Date getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+	public int getRevision() {
+		return revision;
+	}
+	public void setRevision(int revision) {
+		this.revision = revision;
+	}
+	public String getStyleNo() {
+		return styleNo;
+	}
+	public void setStyleNo(String styleNo) {
+		this.styleNo = styleNo;
+	}
+	public int getStyleRevNo() {
+		return styleRevNo;
+	}
+	public void setStyleRevNo(int styleRevNo) {
+		this.styleRevNo = styleRevNo;
+	}
+	public String getCustColorCode() {
+		return custColorCode;
+	}
+	public void setCustColorCode(String custColorCode) {
+		this.custColorCode = custColorCode;
+	}
+	public String getCustSizeCode() {
+		return custSizeCode;
+	}
+	public void setCustSizeCode(String custSizeCode) {
+		this.custSizeCode = custSizeCode;
+	}
+	public String getCustSize1Code() {
+		return custSize1Code;
+	}
+	public void setCustSize1Code(String custSize1Code) {
+		this.custSize1Code = custSize1Code;
+	}
+	public String getCustSize2Code() {
+		return custSize2Code;
+	}
+	public void setCustSize2Code(String custSize2Code) {
+		this.custSize2Code = custSize2Code;
+	}
+	public String getEsqColorCode() {
+		return esqColorCode;
+	}
+	public void setEsqColorCode(String esqColorCode) {
+		this.esqColorCode = esqColorCode;
+	}
+	public String getEsqSizeCode1() {
+		return esqSizeCode1;
+	}
+	public void setEsqSizeCode1(String esqSizeCode1) {
+		this.esqSizeCode1 = esqSizeCode1;
+	}
+	public String getEsqSizeCode2() {
+		return esqSizeCode2;
+	}
+	public void setEsqSizeCode2(String esqSizeCode2) {
+		this.esqSizeCode2 = esqSizeCode2;
+	}
+	public String getSku() {
+		return sku;
+	}
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+	public String getUpc() {
+		return upc;
+	}
+	public void setUpc(String upc) {
+		this.upc = upc;
 	}
 	public String getCustStyleNo() {
 		return custStyleNo;
@@ -24,52 +132,10 @@ public class ProductModel {
 	public void setCustStyleNo(String custStyleNo) {
 		this.custStyleNo = custStyleNo;
 	}
-	public String getColorCode() {
-		return colorCode;
+	public String getUniqueKey() {
+		return uniqueKey;
 	}
-	public void setColorCode(String colorCode) {
-		this.colorCode = colorCode;
-	}
-	public String getSizeCode() {
-		return sizeCode;
-	}
-	public void setSizeCode(String sizeCode) {
-		this.sizeCode = sizeCode;
-	}
-	public String getSize1Code() {
-		return size1Code;
-	}
-	public void setSize1Code(String size1Code) {
-		this.size1Code = size1Code;
-	}
-	public String getSize2Code() {
-		return size2Code;
-	}
-	public void setSize2Code(String size2Code) {
-		this.size2Code = size2Code;
-	}
-	public String getESCMColorCode() {
-		return ESCMColorCode;
-	}
-	public void setESCMColorCode(String eSCMColorCode) {
-		ESCMColorCode = eSCMColorCode;
-	}
-	public String getESCMSizeCode1() {
-		return ESCMSizeCode1;
-	}
-	public void setESCMSizeCode1(String eSCMSizeCode1) {
-		ESCMSizeCode1 = eSCMSizeCode1;
-	}
-	public String getESCMSizeCode2() {
-		return ESCMSizeCode2;
-	}
-	public void setESCMSizeCode2(String eSCMSizeCode2) {
-		ESCMSizeCode2 = eSCMSizeCode2;
-	}
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
+	public void setUniqueKey(String uniqueKey) {
+		this.uniqueKey = uniqueKey;
 	}
 }
