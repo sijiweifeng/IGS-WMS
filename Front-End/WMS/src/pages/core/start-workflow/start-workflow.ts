@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {QaissuePage} from "../../issue/qaissue/qaissue";
 import {RequestissuePage} from "../../issue/requestissue/requestissue";
 import {FnissuePage} from "../../issue/fnissue/fnissue";
+
 /**
 * Generated class for the StartWorkflowPage page.
 *
@@ -65,6 +66,7 @@ export class StartWorkflowPage {
   doGarmentRequest(requestType:string){
     this.navCtrl.push(InitGarmentPage,{reqType:requestType});
   }
+
   HidetabBar(){
     let elements = document.querySelectorAll(".tabbar");
     if (elements != null) {

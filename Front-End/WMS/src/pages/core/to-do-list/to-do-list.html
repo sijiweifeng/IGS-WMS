@@ -30,26 +30,27 @@ Ionic pages and navigation.
 
 <ion-content padding = 0>
 
-<ion-card>
-      <h2 class="subTitle">
+  <ion-card>
+    <h2 class="subTitle">
       Total Pending Items: {{GRNDataSet1.length}}
       <p>
         summary <br>
       </p>
     </h2>
 
-</ion-card>
+  </ion-card>
+
+
+
+
+
 
 
   <div>
-    <ion-list *ngFor="let item1 of workflowSet;let i = index">
-      <ion-list-header color="primary" (click)="showHideElement(item1.name)">
-        {{item1.name}}
-        <ion-icon style="font-size:20px;float:right" name="add"></ion-icon>
+    <button class="accordion" id="accordion1" (click)="toggleListItem('accordion1son')">Garment Receipet Request</button>
 
-      </ion-list-header>
-
-      <ion-card *ngFor="let item of GRNDataSet1 | filter: item1.name">
+    <div class="panel" id="accordion1son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Garment Receipt Request'">
         <ion-card-content>
           <div class="detail-info-div" id ="item1.name">
             <ion-card-title style="font-weight:bold">
@@ -82,8 +83,230 @@ Ionic pages and navigation.
 
 
 
-    </ion-card>
-  </ion-list>
+      </ion-card>
+        </div>
+    <button class="accordion" (click)="toggleListItem('accordion2son')">Fabric Receipt Request</button>
+    <div class="panel" id="accordion2son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Fabric Receipt Request'">
+        <ion-card-content>
+          <div class="detail-info-div">
+            <ion-card-title style="font-weight:bold">
+              {{item.id}}
+            </ion-card-title>
+            <p>
+              {{item.type}} <br>
+              {{item.upcoming}}
+            </p>
+          </div>
+
+          <div class="progress-info-div">
+
+            <div style="float:right;font-size:10px">
+              <circle-progress
+              [percent]="item.percentage"
+              [radius]="34"
+              [outerStrokeWidth]="2"
+              [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#268998'"
+              [innerStrokeColor]="'#50D0E5'"
+              [animation]="true"
+              [animationDuration]="300"
+              >
+            </circle-progress>
+          </div>
+
+        </div>
+      </ion-card-content>
+
+
+
+      </ion-card>
+        </div>
+    <button class="accordion" (click)="toggleListItem('accordion3son')">Stock Counting</button>
+    <div class="panel" id="accordion3son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Stock Counting'">
+        <ion-card-content>
+          <div class="detail-info-div">
+            <ion-card-title style="font-weight:bold">
+              {{item.id}}
+            </ion-card-title>
+            <p>
+              {{item.type}} <br>
+              {{item.upcoming}}
+            </p>
+          </div>
+
+          <div class="progress-info-div">
+
+            <div style="float:right;font-size:10px">
+              <circle-progress
+              [percent]="item.percentage"
+              [radius]="34"
+              [outerStrokeWidth]="2"
+              [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#268998'"
+              [innerStrokeColor]="'#50D0E5'"
+              [animation]="true"
+              [animationDuration]="300"
+              >
+            </circle-progress>
+          </div>
+
+        </div>
+      </ion-card-content>
+
+
+
+      </ion-card>
+        </div>
+    <button class="accordion" (click)="toggleListItem('accordion4son')">Warehouse Transfer</button>
+    <div class="panel" id="accordion4son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Warehouse Transfer'">
+        <ion-card-content>
+          <div class="detail-info-div">
+            <ion-card-title style="font-weight:bold">
+              {{item.id}}
+            </ion-card-title>
+            <p>
+              {{item.type}} <br>
+              {{item.upcoming}}
+            </p>
+          </div>
+
+          <div class="progress-info-div">
+
+            <div style="float:right;font-size:10px">
+              <circle-progress
+              [percent]="item.percentage"
+              [radius]="34"
+              [outerStrokeWidth]="2"
+              [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#268998'"
+              [innerStrokeColor]="'#50D0E5'"
+              [animation]="true"
+              [animationDuration]="300"
+              >
+            </circle-progress>
+          </div>
+
+        </div>
+      </ion-card-content>
+      </ion-card>
+        </div>
+    <button class="accordion" (click)="toggleListItem('accordion5son')">Location Transfer</button>
+    <div class="panel" id="accordion5son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Location Transfer'">
+        <ion-card-content>
+          <div class="detail-info-div">
+            <ion-card-title style="font-weight:bold">
+              {{item.id}}
+            </ion-card-title>
+            <p>
+              {{item.type}} <br>
+              {{item.upcoming}}
+            </p>
+          </div>
+
+          <div class="progress-info-div">
+
+            <div style="float:right;font-size:10px">
+              <circle-progress
+              [percent]="item.percentage"
+              [radius]="34"
+              [outerStrokeWidth]="2"
+              [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#268998'"
+              [innerStrokeColor]="'#50D0E5'"
+              [animation]="true"
+              [animationDuration]="300"
+              >
+            </circle-progress>
+          </div>
+
+        </div>
+      </ion-card-content>
+
+
+
+      </ion-card>
+        </div>
+    <button class="accordion" (click)="toggleListItem('accordion6son')">Quality Assurance</button>
+    <div class="panel" id="accordion6son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Quality Assurance'">
+        <ion-card-content>
+          <div class="detail-info-div">
+            <ion-card-title style="font-weight:bold">
+              {{item.id}}
+            </ion-card-title>
+            <p>
+              {{item.type}} <br>
+              {{item.upcoming}}
+            </p>
+          </div>
+
+          <div class="progress-info-div">
+
+            <div style="float:right;font-size:10px">
+              <circle-progress
+              [percent]="item.percentage"
+              [radius]="34"
+              [outerStrokeWidth]="2"
+              [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#268998'"
+              [innerStrokeColor]="'#50D0E5'"
+              [animation]="true"
+              [animationDuration]="300"
+              >
+            </circle-progress>
+          </div>
+
+        </div>
+      </ion-card-content>
+
+
+
+      </ion-card>
+        </div>
+    <button class="accordion" (click)="toggleListItem('accordion7son')">Issue</button>
+    <div class="panel" id="accordion7son">
+      <ion-card *ngFor="let item of GRNDataSet1 | filter: 'Issue'">
+        <ion-card-content>
+          <div class="detail-info-div">
+            <ion-card-title style="font-weight:bold">
+              {{item.id}}
+            </ion-card-title>
+            <p>
+              {{item.type}} <br>
+              {{item.upcoming}}
+            </p>
+          </div>
+
+          <div class="progress-info-div">
+
+            <div style="float:right;font-size:10px">
+              <circle-progress
+              [percent]="item.percentage"
+              [radius]="34"
+              [outerStrokeWidth]="2"
+              [innerStrokeWidth]="2"
+              [outerStrokeColor]="'#268998'"
+              [innerStrokeColor]="'#50D0E5'"
+              [animation]="true"
+              [animationDuration]="300"
+              >
+            </circle-progress>
+          </div>
+
+        </div>
+      </ion-card-content>
+
+
+
+      </ion-card>
+        </div>
+
+
+
 
 </div>
 

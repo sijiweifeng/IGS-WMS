@@ -5,7 +5,6 @@ import static org.neo4j.helpers.collection.MapUtil.map;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.Map.Entry;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Result;
-import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.esquel.wh.dao.ReceiptDao;
 import com.esquel.wh.model.ResultJsonModel;
-import com.esquel.wh.model.WorkflowRule;
 import com.esquel.wh.model.scanList;
+import com.esquel.wh.utils.CamundaUtil;
 import com.esquel.wh.utils.Common;
 import com.esquel.wh.utils.Neo4jUtil;
-import com.esquel.wh.utils.CamundaUtil;
-import com.esquel.wh.utils.DroolsRulesUtil;
 
 @RestController
 @RequestMapping("/Receipt")

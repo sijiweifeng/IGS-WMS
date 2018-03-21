@@ -23,6 +23,8 @@ export class ToDoListPage {
   workflowSet:any =[];
   tabBarElement: any;
   terms:string;
+  acc:any;
+  index:any;
   showcontent:boolean = false;
 
   constructor(
@@ -30,25 +32,41 @@ export class ToDoListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public appCtrl: App,
-  ) {
-
-
+  )
+  {
     this.tabBarElement = document.querySelector('#tabs ion-tabbar-section');
     this.pushPage = ScanGarmentPage;
     // this.getToDoList();
     this.GRNDataSet1 = [
-    { id:'GEG-G-GRN-201801-0001',Qty:120,Cartons:10,Rolls:0,type:"Garment Receipet Request",percentage:33,priority:1,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
-    { id:'GEG-G-GRN-201801-0002',Qty:240,Cartons:20,Rolls:0,type:"Garment Receipet Request",percentage:66,priority:2,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-G-GRN-201801-0001',Qty:120,Cartons:10,Rolls:0,type:"Garment Receipt Request",percentage:33,priority:1,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-G-GRN-201801-0002',Qty:240,Cartons:20,Rolls:0,type:"Garment Receipt Request",percentage:66,priority:2,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
     { id:'GEG-F-GRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Fabric Receipt Request",percentage:66,priority:3,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
     { id:'GEG-F-GRN-201801-0002',Qty:480,Cartons:0,Rolls:10,type:"Fabric Receipt Request",percentage:66,priority:2,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
-    { id:'GEG-G-SRN-201801-0001',Qty:120,Cartons:10,Rolls:0,type:"Garment Receipet Request",percentage:66,priority:1,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
-    { id:'GEG-G-SRN-201801-0002',Qty:240,Cartons:10,Rolls:0,type:"Garment Receipet Request",percentage:66,priority:3,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-G-SRN-201801-0001',Qty:120,Cartons:10,Rolls:0,type:"Garment Receipt Request",percentage:66,priority:1,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-G-SRN-201801-0002',Qty:240,Cartons:10,Rolls:0,type:"Garment Receipt Request",percentage:66,priority:3,upcoming:"Scan UCC in Warehourse",icon: 'ios-add-circle-outline',showDetails:false},
     { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Fabric Receipt Request",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
     { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Fabric Receipt Request",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Stock Counting",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Stock Counting",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Stock Counting",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Stock Counting",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Fabric Receipt Request",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Warehouse Transfer",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Warehouse Transfer",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Warehouse Transfer",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Location Transfer",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Location Transfer",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0001',Qty:120,Cartons:0,Rolls:10,type:"Location Transfer",percentage:33,priority:2,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Issue",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Quality Assurance",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Quality Assurance",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Quality Assurance",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+    { id:'GEG-F-SRN-201801-0002',Qty:240,Cartons:0,Rolls:20,type:"Issue",percentage:33,priority:4,upcoming:"Print Label",icon: 'ios-add-circle-outline',showDetails:false},
+
   ];
 
   this.workflowSet =[
-    {name: "Garment Receipet Request"},
+    {name: "Garment Receipt Request"},
     {name: "Fabric Receipt Request"},
     {name: "Stock Counting"},
     {name: "Warehouse Transfer"},
@@ -58,6 +76,23 @@ export class ToDoListPage {
 
   ];
 
+}
+
+toggleListItem(toggleID:string){
+  let str1 = "#";
+  let str2 = toggleID;
+  let str3 = str1.concat(str2);
+  let find = <HTMLScriptElement>document.querySelector(str3);
+
+  if (find.style.display == 'none')
+   {
+    find.style.display = 'block';
+  }else
+  {
+    find.style.display="none";
+  }
+
+  ;
 }
 
 
@@ -89,14 +124,7 @@ toggleDetails(data) {
   console.log(data)  ;
 };
 
-showElement(){
-  document.getElementById("displayPart").style.display = "none";
-}
 
-showHideElement(string:string){
-  console.log(string);
-  document.getElementById(string).style.display = "none";
-}
 
 determinePushPage(type: string,parameter:string,upcoming:string) {
   console.log("Determining Page to go[" + type +"] parameter:" + parameter);
