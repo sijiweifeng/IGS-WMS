@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FileChooser } from '@ionic-native/file-chooser';
 import { EsqHttpClient } from "../../../../../providers/HttpClient";
 import { WorkflowcontrolPage } from "../../../workflowcontrol/workflowcontrol";
-import { RequestPage} from "../request/request";
+import { RequestPage } from "../request/request";
 import { AppConfig } from "../../../../../app/app.config";
 
 /**
@@ -20,6 +20,8 @@ import { AppConfig } from "../../../../../app/app.config";
 })
 export class InitGarmentPage {
   recordStore: any = [];
+  parameter: string;
+  parameterList: string[];
   reqType: any;
   leavePage: any;
   transDate: Date;
@@ -27,8 +29,24 @@ export class InitGarmentPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private fileChooser: FileChooser,
     public httpclient: EsqHttpClient, private alertCtrl: AlertController) {
     this.leavePage = WorkflowcontrolPage;
-    this.reqType = navParams.get('reqType');
+    this.parameter = navParams.get('parameter');
+    this.parameterList = this.parameter.split(";")
+    if (this.parameterList === null || this.parameterList === undefined) {
+      let tempList = this.parameter.split(":");
+      if (tempList[0] === "reqType") {
+        this.reqType = tempList[1]
+      }
+    } else {
+      for (let i = 0; i < this.parameterList.length; i++) {
+        let tempList = this.parameterList[i].split(":");
+        if (tempList[0] === "reqType") {
+          this.reqType = tempList[1]
+        }
+      }
+    }
     this.initStore();
+    this.transDate = new Date();
+    console.log(this.transDate);
     //  console.log(this.reqType);
     //     this.recordStore=[
     //   {name:"StoreA"},
@@ -38,8 +56,8 @@ export class InitGarmentPage {
   }
 
   initStore() {
-    console.log("get store list begin" );
-    let jsonFile = AppConfig.getBackEndUrl() +  "/Inquiry/Search";
+    console.log("get store list begin");
+    let jsonFile = AppConfig.getBackEndUrl() + "/Inquiry/Search";
     let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, "body": "query GRNQuery { store{storeCode} }" };
     this.httpclient.postData<any>(jsonDict).subscribe((itemGroup) => {
       if (itemGroup) {
@@ -65,7 +83,7 @@ export class InitGarmentPage {
   }
   next() {
     console.log("check trans date begin" + this.transDate);
-    let jsonFile = AppConfig.getBackEndUrl() +"/Inquiry/checkTransDateFrozen";
+    let jsonFile = AppConfig.getBackEndUrl() + "/Inquiry/checkTransDateFrozen";
     let grn = { type: "Garment", factoryCode: "GEG", "transDate": this.transDate };
 
     let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, "body": grn };
@@ -84,8 +102,8 @@ export class InitGarmentPage {
           checkMsg.present();
           console.log(itemGroup.message);
         }
-        else{
-          this.navCtrl.push(RequestPage,{reqType:this.reqType,transDate:this.transDate,factoryCode:"GEG",type:"Garment"});
+        else {
+          this.navCtrl.push(RequestPage, { reqType: this.reqType, transDate: this.transDate, factoryCode: "GEG", type: "Garment" });
         }
         //this.GRNDataSet1.push(...itemGroup.result);
       }

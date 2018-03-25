@@ -101,14 +101,9 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-graphql</artifactId>
-            <version>3.3.0.0</version>
+            <version>3.3.0.1</version>
         </dependency>
         
-		<dependency>
-			<groupId>com.graphql-java</groupId>
-			<artifactId>graphql-java</artifactId>
-			<version>7.0</version>
-		</dependency>
 		<!-- Camunda BPM -->
 		<dependency>
 			<groupId>org.camunda.bpm.extension.springboot</groupId>

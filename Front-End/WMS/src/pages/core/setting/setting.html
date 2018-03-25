@@ -15,14 +15,14 @@
 
 <ion-content padding class="setting-background" style="height:100%">
   <ion-item>
-    <ion-label color="primary">District</ion-label>
-    <ion-select [(ngModel)]="Location" multiple="true">
+    <ion-label color="primary">Factory</ion-label>
+    <ion-select [(ngModel)]="factory" multiple="true">
       <ion-option>YMG</ion-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
-    <ion-label color="primary">Warehouse </ion-label>
+    <ion-label color="primary">Warehouse</ion-label>
     <ion-select [(ngModel)]="warehouse" multiple="true">
       <ion-option>Warehouse A</ion-option>
     </ion-select>
@@ -34,4 +34,9 @@
       <ion-option>中文</ion-option>
     </ion-select>
   </ion-item>
+  <ion-footer class="footer">
+    <ion-toolbar align="middle">
+      <button ion-button (tap)="save()">Save</button>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

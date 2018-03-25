@@ -1,5 +1,7 @@
 package com.esquel.wh.controller;
 
+import static org.neo4j.helpers.collection.MapUtil.map;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -10,21 +12,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.neo4j.server.rest.domain.JsonHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.esquel.wh.utils.*;
 import com.esquel.wh.dao.EASNDao;
 import com.esquel.wh.dao.GEKFabricDao;
 import com.esquel.wh.dao.WMSMasterDao;
 import com.esquel.wh.model.FabricStock;
 import com.esquel.wh.model.ResultJsonModel;
 import com.esquel.wh.model.Stock;
-
-import static org.neo4j.helpers.collection.MapUtil.map;
+import com.esquel.wh.utils.Neo4jUtil;
 
 @RestController
 @RequestMapping("/Inquiry")
@@ -85,7 +86,7 @@ public class InquiryController {
 		String factoryCode = "";
 		Date transDate = null;
 		try {
-			Map json = Common.JosnToMap(inputJson);
+			Map json = JsonHelper.jsonToMap(inputJson);
 			Iterator entries = json.entrySet().iterator();
 			while (entries.hasNext()) {
 				Map.Entry entry = (Map.Entry) entries.next();
@@ -119,7 +120,7 @@ public class InquiryController {
 			}
 
 			new WMSMasterDao(wmsMasterDB).checkTransDateFrozen(type, factoryCode, transDate);
-
+			
 			result.setMessage("OK");
 			result.setTotal(1);
 			result.setResult("OK");

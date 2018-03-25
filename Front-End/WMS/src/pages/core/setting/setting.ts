@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { AppConfig } from "../../../app/app.config";
 /**
  * Generated class for the SettingPage page.
  *
@@ -14,12 +14,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'setting.html',
 })
 export class SettingPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  factory:String
+  warehouse:String
+  language:String
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingPage');
   }
 
+  save(){
+    let config = new AppConfig();
+    config.setFactoryCode(this.factory);
+    config.setWarehouse(this.warehouse);
+    config.setLanguage(this.language);
+    let saveMsg = this.alertCtrl.create({
+          title: "Setting",
+          subTitle: "Save successfully!",
+          buttons: [{
+            text: 'OK',
+            handler: () => {
+              this.exitPage();
+            }
+          }
+          ]
+        });
+        saveMsg.present();
+  }
+  exitPage() {
+    console.log('Exit');
+  }
 }

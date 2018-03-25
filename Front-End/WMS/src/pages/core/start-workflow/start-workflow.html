@@ -28,52 +28,15 @@ Ionic pages and navigation.
 
 <ion-content padding class="home-background" stlye="padding-left:0;padding-right:0">
 
-<button ion-button full class="full-button-style" (click)="showGarmnetCat()"
- style="background-image: url('../../assets/imgs/garment-bg.jpg');">
-  Garment
+  <div lass="workflow-button" *ngFor="let item of workFlowOption">
+    <button ion-button full class="full-button-style">
+      {{item.name}}
+    </button>
 
-</button>
-
-<div *ngIf="showGarmnetCatbool">
-<button ion-button color="dark" (click)="doGarmentRequest('Normal');HidetabBar()" class="sub-selction-button">正常收貨</button>
-<button ion-button color="dark" (click)="doGarmentRequest('QA');HidetabBar()" class="sub-selction-button">客人退貨</button>
-<button ion-button color="dark" (click)="doGarmentRequest('outSource');HidetabBar()" class="sub-selction-button">外發收貨</button>
-</div>
-
-
-<button ion-button full class="full-button-style" [navPush]="FabricRequest" (click)="HidetabBar()"
-style="background-image: url('../../assets/imgs/fabric-bg.jpg');">
-
-  Fabric Reciept Request
-
-</button>
-
-<button ion-button full class="full-button-style" style="background-image: url('../../assets/imgs/stock-bg.jpg');">
-Stock Counting
-</button>
-
-<button ion-button full class="full-button-style" style="background-image: url('../../assets/imgs/wt-bg.jpg');">
-  Warehouse Transfer
-</button>
-
-<button ion-button full class="full-button-style" style="background-image: url('../../assets/imgs/lt-bg.jpg');">
-  Location Transfer
-</button>
-
-<button ion-button full class="full-button-style" style="background-image: url('../../assets/imgs/qa-bg.jpg');">
-  Quality Assurance
-</button>
-
-<button ion-button full class="full-button-style" (click)="showIssueCat()"
- style="background-image: url('../../assets/imgs/issue-bg.jpg');">
-  Issue
-</button>
-
-<div *ngIf="showIssueCatbool">
-<button ion-button color="dark" [navPush]="RequestQAPage" class="sub-selction-button-issue" (click)="HidetabBar()">Request For QA</button>
-<button ion-button color="dark" [navPush]="RequestFNPage" class="sub-selction-button-issue" (click)="HidetabBar()">Request For FN</button>
-<button ion-button color="dark" [navPush]="RequsetPage" class="sub-selction-button-issue" (click)="HidetabBar()">Request</button>
-</div>
-
+    <button *ngFor="let subItem of item['subBusinessType']" ion-button color="dark" class="sub-selction-button-issue" (click)="doOpenPage(subItem.pageName,subItem.parameter)">
+      {{subItem.name}}
+    </button>
+  </div>
+  
 
 </ion-content>

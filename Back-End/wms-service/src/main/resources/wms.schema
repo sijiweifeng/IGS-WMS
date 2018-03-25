@@ -1,0 +1,143 @@
+type Factory{
+	id:String,
+	uniqueKey: String,
+	factoryCode:String,
+	active:String,
+	Type:[Type]@relation(name:"Contains",direction:"OUT")
+	location:[location]@relation(name:"Contains",direction:"OUT")
+} 
+
+type location{
+	id:String,
+	uniqueKey:String,
+	locationNo:String,
+	status:String,
+	createdDate:String,
+	createdBy:String,
+	lastModifiedDate:String,
+	lastModifiedBy:String,
+	uom:String,
+	capacity:Number,
+	stock:[stock]@relation(name:"Contains",direction:"OUT")
+} 
+
+type Type{
+	id:String,
+	uniqueKey: String,
+	name:String,
+	active:String,
+	Factory:[Factory]@relation(name:"Contains",direction:"IN"),
+	businessType(factoryCode:String):[businessType]@cypher(statement:"WITH $this as this MATCH (this)-[r:Contains]->(b:businessType) where r.factoryCode={factoryCode} return b")
+  	store(factoryCode:String):[store]@cypher(statement:"WITH $this as this MATCH (this)-[r:Contains]->(b:store) where r.factoryCode={factoryCode} return b")
+}
+
+type store{
+	id:String,
+	uniqueKey: String,
+	storeCode:String,
+	active:String,
+	Type:[Type]@relation(name:"Contains",direction:"IN")
+} 
+
+type businessType{
+	id:String,
+	uniqueKey: String,
+	name:String,
+	active:String,
+	pageName:String,
+	parameter:String,
+	location:[location]@relation(name:"Contains",direction:"IN")
+	subBusinessType(factoryCode:String):[businessType]@cypher(statement:"WITH $this as this MATCH (this)-[r:Contains]->(b:businessType) where r.factoryCode={factoryCode} return b")
+}
+
+type receipt{
+	transId:String,
+	docNo:String,
+	uniqueKey: String,
+	requestDate: String,
+	requestBy: String,
+	status: String,
+	transCode: String,
+	factoryCode:String,
+	storeCode:String,
+	receiptUserBy:String,
+	receiptDate:String,
+	lastModifiedDate:String,
+	lastModifiedBy:String,
+	stock:[stock]@relation(name:"TransferIn",direction:"OUT"),
+	order:[order]@relation(name:"Contains",direction:"OUT")
+} 
+type stock{
+	id:String,
+	uniqueKey:String,
+	type:String,
+	createdDate:String,
+	createdBy:String,
+	lastModifiedDate:String,
+	lastModifiedBy:String,
+	uom:String,
+	originalQty:Int,
+	qty:Int,
+	inFtyDate:String,
+	inStoreDate:String,
+	expiryDate:String,
+	status:String,
+	ucc:String,
+	storeCode:String,
+	stockClass:String,
+	stockGroup:String,
+	grade:String,
+	source:String,
+	cartonNo:String,
+	easnCustomerCd:String,
+	prePackCd:String,
+	prePackStyle:String,
+	prePrackUnit:String,
+	ctno:String,
+	packingLine:String,
+	firstSewingLine:String,
+	sewingFactory:String,
+	firstPackFactory:String,
+	lastPackFactory:String,
+	weight:Int,
+	boardCode:String,
+	buyerPONO:String,
+	receipt:[receipt]@relation(name:"TransferIn",direction:"IN"),
+	order:[order]@relation(name:"Produces",direction:"IN"),
+	product:[product]@relation(name:"InstanceOf",direction:"OUT"),
+	location:[location]@relation(name:"Contains",direction:"OUT")
+} 
+type product{
+	id:String,
+	uniqueKey:String,
+	createdDate:String,
+	createdBy:String,
+	lastModifiedDate:String,
+	lastModifiedBy:String,
+	revision:Int,
+	custStyleNo:String,
+	styleNo:String,
+	styleRevNo:Int,
+	custColorCode:String,
+	custSizeCode:String,
+	custSize1Code:String,
+	custSize2Code:String,
+	colorSeq:Int,
+	size1Seq:Int,
+	size2Seq:Int,
+	esqColorCode:String,
+	esqSizeCode1:String,
+	esqSizeCode2:String,
+	sku:String,
+	upc:String,
+	stock:[stock]@relation(name:"InstanceOf",direction:"IN")
+} 
+
+type order{
+	id:String,
+	uniqueKey:String,
+	orderNo:String,
+	type:String,
+	receipt:[receipt]@relation(name:"Contains",direction:"IN"),
+	stock:[stock]@relation(name:"Produces",direction:"OUT")
+} 

@@ -16,6 +16,7 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphql.GraphQLContext;
 import org.neo4j.graphql.GraphQLProcedure;
 import org.neo4j.graphql.GraphQLSchemaBuilder;
+import org.neo4j.graphql.GraphSchemaScanner;
 import org.neo4j.kernel.impl.proc.Procedures;
 import org.neo4j.kernel.internal.GraphDatabaseAPI;
 import org.neo4j.logging.FormattedLog;
@@ -43,7 +44,8 @@ public class Neo4jUtil {
 
 			((GraphDatabaseAPI) db).getDependencyResolver().resolveDependency(Procedures.class)
 					.registerFunction(GraphQLProcedure.class);
-
+			String schema = Common.ReadFile("C:\\zhanghonl\\WMS\\WMS.txt");
+			GraphSchemaScanner.Companion.storeIdl(db,schema);
 			GraphQLSchema graphQLSchema = GraphQLSchemaBuilder.buildSchema(db);
 			Builder builder = new Builder(graphQLSchema);
 			graphql = builder.build();

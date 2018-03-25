@@ -9,29 +9,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import java.util.Map.Entry;
 
 public class Common {
-	public static Map JosnToMap(String jsonValue) {
-		ObjectMapper mapper = new ObjectMapper();
-		Map json = null;
-		try {
-			json = mapper.readValue(jsonValue, Map.class);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return json;
-	}
 
 	public static String ReadFile(String path) {
 		String laststr = "";
@@ -61,13 +41,18 @@ public class Common {
 	public static void getJsonValue(String node, Map json, Map<String, List<String>> nodeproperty,
 			Map<String, String> nodeKey) {
 		boolean addFlag = true;
-		Iterator entries = json.entrySet().iterator();
+		Iterator<Entry<String, Object>> entries = json.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry entry = (Map.Entry) entries.next();
 			String key = (String) entry.getKey();
 			addFlag = true;
 			if (entry.getValue() instanceof ArrayList) {
-				for (int i = 0; i < ((ArrayList) entry.getValue()).size(); i++) {
+				List<Object> ls = new ArrayList<Object>();
+				ls.add(entry.getValue());
+				
+				for (int i = 0; i < ls.size(); i++) {
+					ls.get(i);
+					Map<String,Object> m1 = (Map<String,Object>)ls.get(i);
 					getJsonValue(key, (Map) (((ArrayList) entry.getValue()).get(i)), nodeproperty, nodeKey);
 				}
 			} else if (entry.getValue() instanceof Map) {

@@ -6,11 +6,11 @@ ion-card-title{
   font-size:8px;
 }
 
-.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
+.accordion-toggle {
+    background-color: #000;
+    color: #fff;
+    padding: 14px;
+    margin-bottom:8px;
     width: 100%;
     border: none;
     text-align: left;
@@ -23,7 +23,7 @@ ion-card-title{
 
 .panel {
     padding: 0 18px;
-    background-color: white;
+    background-color: none;
     max-height: 10000px;
     display:none;
     overflow: hidden;
@@ -42,10 +42,18 @@ align:center;
 }
 
 .detail-info-div{
+  float:left;
+  font-size: small;
+  padding:10px;
   ion-card-title{
     font-size:small;
   }
+  ion-card-content{
+    font-size: small;
+    color:#000;
+  }
 }
+
 
 
 
@@ -53,12 +61,6 @@ align:center;
 .dropinfo-icon{
   font-size: 25px;
   float:right;
-}
-
-.detail-info-div{
-  float:left;
-  font-size: small;
-  width:75%;
 }
 
 .progress-info-div{
