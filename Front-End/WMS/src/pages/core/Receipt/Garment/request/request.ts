@@ -103,7 +103,7 @@ export class RequestPage {
         for (let i = 0; i < this.waitItems.length; i++) {
           if (this.enterInput === this.waitItems[i].ucc) {
             let uuid = UUID.UUID();
-            this.waitItems[i].push("id",uuid);
+            this.waitItems[i]["id"] = uuid;
             this.dataset1.push(this.waitItems[i]);
             this.findFlag = true;
           }

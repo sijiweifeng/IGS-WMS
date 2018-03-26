@@ -11,9 +11,7 @@ import org.junit.Test;
 import com.esquel.wh.model.WorkflowRule;
 import com.esquel.wh.utils.Common;
 import com.esquel.wh.utils.DroolsRulesUtil;
-
-import org.neo4j.graphql.IDLParser;
-import org.neo4j.server.rest.domain.JsonHelper;
+import com.esquel.wh.utils.JsonHelper;
 
 public class AppTest {
 	// @Test

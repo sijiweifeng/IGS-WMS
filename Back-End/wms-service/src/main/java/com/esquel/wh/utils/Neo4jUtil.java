@@ -3,6 +3,7 @@ package com.esquel.wh.utils;
 import static org.neo4j.helpers.collection.MapUtil.map;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,8 @@ public class Neo4jUtil {
 
 			((GraphDatabaseAPI) db).getDependencyResolver().resolveDependency(Procedures.class)
 					.registerFunction(GraphQLProcedure.class);
-			String schema = Common.ReadFile("C:\\zhanghonl\\WMS\\WMS.txt");
+
+			String schema = Common.ReadFile(Neo4jUtil.class.getResource("/wms.schema").toString());
 			GraphSchemaScanner.Companion.storeIdl(db,schema);
 			GraphQLSchema graphQLSchema = GraphQLSchemaBuilder.buildSchema(db);
 			Builder builder = new Builder(graphQLSchema);

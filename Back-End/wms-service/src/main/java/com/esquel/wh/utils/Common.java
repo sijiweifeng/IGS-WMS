@@ -15,6 +15,9 @@ public class Common {
 
 	public static String ReadFile(String path) {
 		String laststr = "";
+		System.out.println("Ori Path:" + path);
+		path = path.replace("file:/", "");
+		System.out.println("Cur Path:" + path);
 		File file = new File(path);// 打开文件
 		BufferedReader reader = null;
 		try {
@@ -51,8 +54,6 @@ public class Common {
 				ls.add(entry.getValue());
 				
 				for (int i = 0; i < ls.size(); i++) {
-					ls.get(i);
-					Map<String,Object> m1 = (Map<String,Object>)ls.get(i);
 					getJsonValue(key, (Map) (((ArrayList) entry.getValue()).get(i)), nodeproperty, nodeKey);
 				}
 			} else if (entry.getValue() instanceof Map) {

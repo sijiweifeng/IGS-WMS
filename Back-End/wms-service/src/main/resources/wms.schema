@@ -45,7 +45,7 @@ type businessType{
 	name:String,
 	active:String,
 	pageName:String,
-	parameter:String,
+	parameter:String,	
 	location:[location]@relation(name:"Contains",direction:"IN")
 	subBusinessType(factoryCode:String):[businessType]@cypher(statement:"WITH $this as this MATCH (this)-[r:Contains]->(b:businessType) where r.factoryCode={factoryCode} return b")
 }

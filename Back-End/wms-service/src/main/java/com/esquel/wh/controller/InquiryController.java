@@ -2,6 +2,7 @@ package com.esquel.wh.controller;
 
 import static org.neo4j.helpers.collection.MapUtil.map;
 
+import java.io.File;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -12,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.neo4j.server.rest.domain.JsonHelper;
+import com.esquel.wh.utils.JsonHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,6 @@ public class InquiryController {
 	
 	@RequestMapping(path = "/Search", method = RequestMethod.POST, consumes = "application/json")
 	public Map<String,List<Map>> Search(@RequestBody String query) {
-		
 		Neo4jUtil db = Neo4jUtil.getInstance(path);
 		Map<String, List<Map>> result = db.executeQuery(query,map());
 

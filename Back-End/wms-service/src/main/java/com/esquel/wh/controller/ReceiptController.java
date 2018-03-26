@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.neo4j.graphdb.Result;
-import org.neo4j.server.rest.domain.JsonHelper;
+import com.esquel.wh.utils.JsonHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
