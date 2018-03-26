@@ -16,17 +16,25 @@
 <ion-content padding class="setting-background" style="height:100%">
   <ion-item>
     <ion-label color="primary">Factory</ion-label>
-    <ion-select [(ngModel)]="factory" multiple="true">
-      <ion-option>YMG</ion-option>
+    <ion-select [(ngModel)]="factory"  (ngModelChange)="selectFactory()" multiple="false">
+      <ion-option *ngFor="let item1 of recordFactory" value="{{item1?.id}}">{{item1.factoryCode}}</ion-option>
     </ion-select>
   </ion-item>
 
-  <ion-item>
+    <ion-item>
     <ion-label color="primary">Warehouse</ion-label>
-    <ion-select [(ngModel)]="warehouse" multiple="true">
-      <ion-option>Warehouse A</ion-option>
+    <ion-select [(ngModel)]="warehouse" multiple="false">
+      <ion-option *ngFor="let item2 of recordWarehouse" value="{{item2?.id}}" >{{item2.locationNo}}</ion-option>
     </ion-select>
   </ion-item>
+
+      <ion-item>
+    <ion-label color="primary">Type</ion-label>
+    <ion-select [(ngModel)]="type" multiple="false">
+      <ion-option *ngFor="let item3 of recordType" value="{{item3?.id}}" >{{item3.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
   <ion-item>
     <ion-label color="primary">Language </ion-label>
     <ion-select [(ngModel)]="language" multiple="false">

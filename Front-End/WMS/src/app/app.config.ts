@@ -12,25 +12,4 @@ export class AppConfig {
     public static getWindowWidth() {
         return window.screen.width;
     }
-    factoryCode:String;
-    public setFactoryCode(fty:String){
-        this.factoryCode = fty;
-    }
-    public getFactory(){
-        return this.factoryCode;
-    }
-    warehouse:String;
-    public setWarehouse(wh:String){
-        this.warehouse = wh;
-    }
-    public getWarehouse(){
-        return this.warehouse;
-    }
-    language:String
-    public setLanguage(lan:String){
-        this.language = lan;
-    }
-    public getLanguage(){
-        return this.language;
-    }
 }

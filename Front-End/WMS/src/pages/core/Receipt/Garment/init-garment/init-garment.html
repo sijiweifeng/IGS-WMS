@@ -17,7 +17,7 @@ Ionic pages and navigation.
   <div>
     <ion-item>
       <ion-label color="primary">Select Store Code</ion-label>
-      <ion-select [(ngModel)]="Location" multiple="false">
+      <ion-select [(ngModel)]="storeCode" multiple="false">
         <ion-option *ngFor="let item of recordStore">{{item.storeCode}}</ion-option>
       </ion-select>
     </ion-item>

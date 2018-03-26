@@ -32,7 +32,8 @@ import { RestProvider } from '../providers/rest/rest';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
 import { FileChooser } from '@ionic-native/file-chooser';
-
+import { CacheModule } from 'ionic-cache';
+import {EsqCacheHelper} from '../providers/cacheHelper';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
     JsonpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    CacheModule.forRoot(),
     NgCircleProgressModule.forRoot
     (
       {
@@ -99,6 +101,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
     HTTP,
     HttpClient,
     EsqHttpClient,
+    EsqCacheHelper,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     RestProvider

@@ -3,7 +3,7 @@ import { NavController, NavParams, ModalController, AlertController } from 'ioni
 import { WorkflowcontrolPage } from "../../../workflowcontrol/workflowcontrol";
 import { EsqHttpClient } from "../../../../../providers/HttpClient";
 import { StatusBar } from '@ionic-native/status-bar';
-import { PrintPage } from '../../../../print/print';
+import { ConfirmLocationGarmentPage } from '../cfm-location-garment/cfm-location-garment';
 import { UUID } from 'angular2-uuid';
 import { AppConfig } from "../../../../../app/app.config";
 
@@ -12,7 +12,10 @@ import { AppConfig } from "../../../../../app/app.config";
   templateUrl: 'request.html'
 })
 export class RequestPage {
-  selectedItem: any;
+  storeCode: string;
+  transDate:Date;
+  reqType:string;
+
   randomGRN: any;
   nextPage: any;
   enterInput: any;
@@ -32,29 +35,22 @@ export class RequestPage {
     public httpclient: EsqHttpClient,
     private alertCtrl: AlertController) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+    this.storeCode = navParams.get('storeCode');
+    this.reqType = navParams.get("reqType");
+    this.transDate = navParams.get("transDate");
+
     this.leavePage = WorkflowcontrolPage;
-    this.nextPage = PrintPage;
+    this.nextPage = ConfirmLocationGarmentPage;
     this.statusBar.overlaysWebView(true);
     this.statusBar.show();
     this.statusBar.backgroundColorByHexString('#FFAABB');
 
     // Let's populate this page with some filler content for funzies
     this.inputFoundinOrder = false;
-    this.generateRandomGRN;
+
     this.getWaitItems();
-    // this.enterInput = "00007006743519820983";
-    this.myParam = "test";
+
   }
-
-  generateRandomGRN() {
-    console.log("hi");
-
-    // this.generateRandomGRN = "GEG-G-GRN-" + Math.random()*1000 +1;
-    console.log(this.generateRandomGRN);
-    //GEG-G-GRN-201801-0001
-  }
-
 
   getWaitItems() {
     console.log("get easn wait sent to warehouse ucc");
@@ -71,7 +67,6 @@ export class RequestPage {
     })
 
   }
-
 
   getFormatDate(time: any) {
 

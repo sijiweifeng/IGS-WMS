@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import {WorkflowcontrolPage} from '../pages/core/workflowcontrol/workflowcontrol';
+import { CacheService } from 'ionic-cache';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,8 +18,8 @@ export class MyApp {
 
   pages: Array<{title: string, component: any,name:string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, cache: CacheService) {
+    this.initializeApp(cache);
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -30,8 +31,13 @@ export class MyApp {
 }
 
 
-initializeApp() {
+initializeApp(cache:CacheService) {
   this.platform.ready().then(() => {
+      // Set TTL to 12h
+      cache.setDefaultTTL(60 * 60 * 12); 
+      // Keep our cached results when device is offline!
+      cache.setOfflineInvalidate(false);
+
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
     this.statusBar.styleDefault();

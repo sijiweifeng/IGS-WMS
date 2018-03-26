@@ -25,6 +25,7 @@ export class InitGarmentPage {
   reqType: any;
   leavePage: any;
   transDate: Date;
+  storeCode:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fileChooser: FileChooser,
     public httpclient: EsqHttpClient, private alertCtrl: AlertController) {
@@ -46,13 +47,6 @@ export class InitGarmentPage {
     }
     this.initStore();
     this.transDate = new Date();
-    console.log(this.transDate);
-    //  console.log(this.reqType);
-    //     this.recordStore=[
-    //   {name:"StoreA"},
-    //   {name:"StoreB"},
-    //   {name:"StoreC"}
-    // ];
   }
 
   initStore() {
@@ -63,7 +57,6 @@ export class InitGarmentPage {
       if (itemGroup) {
         console.log(JSON.stringify(itemGroup.store));
         this.recordStore = itemGroup.store;
-        //this.GRNDataSet1.push(...itemGroup.result);
       }
       console.log("get store list end!");
     }, (errMsg) => {
@@ -103,7 +96,7 @@ export class InitGarmentPage {
           console.log(itemGroup.message);
         }
         else {
-          this.navCtrl.push(RequestPage, { reqType: this.reqType, transDate: this.transDate, factoryCode: "GEG", type: "Garment" });
+          this.navCtrl.push(RequestPage, { reqType: this.reqType, transDate: this.transDate ,storeCode:this.storeCode });
         }
         //this.GRNDataSet1.push(...itemGroup.result);
       }

@@ -65,7 +65,8 @@ type receipt{
 	lastModifiedDate:String,
 	lastModifiedBy:String,
 	stock:[stock]@relation(name:"TransferIn",direction:"OUT"),
-	order:[order]@relation(name:"Contains",direction:"OUT")
+	order:[order]@relation(name:"Contains",direction:"OUT"),
+	qty:Number@cypher(statement:"WITH $this as this Match (this)-[r:TransferIn]->(s:stock) return sum(s.originalQty)")
 } 
 type stock{
 	id:String,
