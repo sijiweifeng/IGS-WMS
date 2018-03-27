@@ -9,20 +9,24 @@ export class EsqCacheHelper {
 
     }
 
-    public getKeyValue(key) {
-        let value: any;
-        if (this.cache.itemExists(key)) {
-            console.log(this.cache.getItem(key));
-            value = this.cache.getItem(key)
-        }
-        return value;
-    }
     public setKeyValue(key, value) {
-        this.cache.getItem(key).catch(() => {
+        if (this.cache.itemExists(key)) {
+            this.cache.removeItem(key);
+        }
+        this.cache.getRawItem(key).catch(() => {
             let result = value;
             return this.cache.saveItem(key, result);
         }).then((data) => {
             console.log("Saved data: ", data);
         });
+    }
+
+    public getKeyValue(key): Promise<any> {
+        return this.cache.getRawItem(key).catch((data)=>{
+            return Promise.reject(data);
+        }).then(function(data){
+            let obj = JSON.parse(data.value)
+            return obj;
+        })
     }
 }

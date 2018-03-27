@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { EsqHttpClient } from "../../../../../providers/HttpClient";
+import { EsqCacheHelper } from "../../../../../providers/cacheHelper";
 import { WorkflowcontrolPage } from "../../../workflowcontrol/workflowcontrol";
 import { RequestPage } from "../request/request";
 import { AppConfig } from "../../../../../app/app.config";
@@ -26,9 +27,12 @@ export class InitGarmentPage {
   leavePage: any;
   transDate: Date;
   storeCode:string;
+  factoryCode:string;
+  typeid:string;
+  businessTypeId:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fileChooser: FileChooser,
-    public httpclient: EsqHttpClient, private alertCtrl: AlertController) {
+    public httpclient: EsqHttpClient, private alertCtrl: AlertController,private esqCache: EsqCacheHelper) {
     this.leavePage = WorkflowcontrolPage;
     this.parameter = navParams.get('parameter');
     this.parameterList = this.parameter.split(";")
@@ -45,18 +49,25 @@ export class InitGarmentPage {
         }
       }
     }
-    this.initStore();
+    esqCache.getKeyValue("factory").then((data)=>{
+      this.factoryCode = data.factoryCode;
+      esqCache.getKeyValue("type").then((data)=>{
+        this.typeid = data.id;
+        this.initStore(this.factoryCode,this.typeid);
+      })
+    })
+    
     this.transDate = new Date();
   }
 
-  initStore() {
+  initStore(factoryCode,typeid) {
     console.log("get store list begin");
     let jsonFile = AppConfig.getBackEndUrl() + "/Inquiry/Search";
-    let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, "body": "query GRNQuery { store{storeCode} }" };
+    let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, "body": "query storeQuery { Type(id:\"" + typeid + "\"){store(factoryCode:\""+ factoryCode +"\"){storeCode} }}" };
     this.httpclient.postData<any>(jsonDict).subscribe((itemGroup) => {
       if (itemGroup) {
-        console.log(JSON.stringify(itemGroup.store));
-        this.recordStore = itemGroup.store;
+        console.log(JSON.stringify(itemGroup));
+        this.recordStore = itemGroup.Type[0].store;
       }
       console.log("get store list end!");
     }, (errMsg) => {
@@ -96,7 +107,7 @@ export class InitGarmentPage {
           console.log(itemGroup.message);
         }
         else {
-          this.navCtrl.push(RequestPage, { reqType: this.reqType, transDate: this.transDate ,storeCode:this.storeCode });
+          this.navCtrl.push(RequestPage, { reqType: this.reqType, transDate: this.transDate ,storeCode:this.storeCode ,businessTypeId:this.businessTypeId});
         }
         //this.GRNDataSet1.push(...itemGroup.result);
       }

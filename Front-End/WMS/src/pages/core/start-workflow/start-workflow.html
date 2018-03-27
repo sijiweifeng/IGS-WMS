@@ -33,7 +33,7 @@ Ionic pages and navigation.
       {{item.name}}
     </button>
 
-    <button *ngFor="let subItem of item['subBusinessType']" ion-button color="dark" class="sub-selction-button-issue" (click)="doOpenPage(subItem.pageName,subItem.parameter)">
+    <button *ngFor="let subItem of item['subBusinessType']" ion-button color="dark" class="sub-selction-button-issue" (click)="doOpenPage(subItem.pageName,subItem.parameter,subItem.id)">
       {{subItem.name}}
     </button>
   </div>

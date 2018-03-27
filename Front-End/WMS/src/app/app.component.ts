@@ -37,6 +37,8 @@ initializeApp(cache:CacheService) {
       cache.setDefaultTTL(60 * 60 * 12); 
       // Keep our cached results when device is offline!
       cache.setOfflineInvalidate(false);
+      
+      cache.clearExpired();
 
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.

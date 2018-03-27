@@ -38,8 +38,7 @@
   <ion-item>
     <ion-label color="primary">Language </ion-label>
     <ion-select [(ngModel)]="language" multiple="false">
-      <ion-option>English</ion-option>
-      <ion-option>中文</ion-option>
+      <ion-option *ngFor="let item4 of recordLanguage" value="{{item4?.name}}" >{{item4.name}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-footer class="footer">

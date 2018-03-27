@@ -9,6 +9,7 @@ import { RequestissuePage } from "../../issue/requestissue/requestissue";
 import { FnissuePage } from "../../issue/fnissue/fnissue";
 import { AppConfig } from "../../../app/app.config";
 import { EsqHttpClient } from "../../../providers/HttpClient";
+import { EsqCacheHelper } from "../../../providers/cacheHelper";
 /**
 * Generated class for the StartWorkflowPage page.
 *
@@ -22,7 +23,7 @@ import { EsqHttpClient } from "../../../providers/HttpClient";
   templateUrl: 'start-workflow.html',
 })
 export class StartWorkflowPage {
-  param = { value: 'world' };
+
   GarmentRequest: any;
   FabricRequest: any;
   RequestQAPage: any;
@@ -35,8 +36,9 @@ export class StartWorkflowPage {
   showIssueCatbool: boolean;
   ButtonDivs: Array<any>;
   showGarmnetCatbool: boolean;
+  factoryCode: string;
 
-  constructor(public navCtrl: NavController, public httpclient: EsqHttpClient,public navParams: NavParams, translate: TranslateService) {
+  constructor(public navCtrl: NavController, public httpclient: EsqHttpClient, public navParams: NavParams, translate: TranslateService, public esqCache: EsqCacheHelper) {
 
     this.images = [
       { src: "../../assets/imgs/garment-bg.jpg" },
@@ -47,7 +49,16 @@ export class StartWorkflowPage {
       { src: "../../assets/imgs/qa-bg.jpg" },
       { src: "../../assets/imgs/issue-bg.jpg" },
     ];
-this.getBusinessTypeList();
+
+    this.esqCache.getKeyValue("factory").catch((data) => {
+      console.log(data);
+    }).then((data) => {
+      if (data != undefined) {
+        this.factoryCode = data.factoryCode;
+        this.getBusinessTypeList();
+      }
+    });
+    
     // this.workFlowOption =
     //   [
     //     {
@@ -140,9 +151,9 @@ this.getBusinessTypeList();
     this.showGarmnetCatbool = !this.showGarmnetCatbool;
   }
 
-  doOpenPage(pageName:string , parameter:string){
-    if(pageName=="InitGarmentPage"){
-      this.navCtrl.push(InitGarmentPage,{parameter:parameter});
+  doOpenPage(pageName: string, parameter: string, businessTypeId: string) {
+    if (pageName == "InitGarmentPage") {
+      this.navCtrl.push(InitGarmentPage, { parameter: parameter, businessTypeId: businessTypeId });
     }
   }
   HidetabBar() {
@@ -156,20 +167,20 @@ this.getBusinessTypeList();
   }
 
   getBusinessTypeList() {
-  console.log("get Business Type list begin");
-  let jsonFile = AppConfig.getBackEndUrl() +  "/Inquiry/Search";
-  let query =" query bq{Type(name:\"Garment\"){id,name,businessType(factoryCode:\"GEG\"){id,name,subBusinessType(factoryCode:\"GEG\"){id,name,pageName,parameter}}}}"
-  let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0 ,body:query};
-  this.httpclient.postData<any>(jsonDict).subscribe((itemGroup) => {
-    if (itemGroup) {
-      console.log(JSON.stringify(itemGroup.Type[0].businessType));
-      this.workFlowOption =itemGroup.Type[0].businessType;
-    }
-    console.log("get Business Type list end!");
-  }, (errMsg) => {
-    console.log(errMsg);
-  })
+    console.log("get Business Type list begin");
+    let jsonFile = AppConfig.getBackEndUrl() + "/Inquiry/Search";
+    let query = " query bq{Type(name:\"Garment\"){id,name,businessType(factoryCode:\""+ this.factoryCode +"\"){id,name,subBusinessType(factoryCode:\""+ this.factoryCode +"\"){id,name,pageName,parameter}}}}"
+    let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, body: query };
+    this.httpclient.postData<any>(jsonDict).subscribe((itemGroup) => {
+      if (itemGroup) {
+        console.log(JSON.stringify(itemGroup.Type[0].businessType));
+        this.workFlowOption = itemGroup.Type[0].businessType;
+      }
+      console.log("get Business Type list end!");
+    }, (errMsg) => {
+      console.log(errMsg);
+    })
 
-}
+  }
 
 }

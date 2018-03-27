@@ -19,19 +19,50 @@ import { EsqHttpClient } from "../../../providers/HttpClient";
 export class SettingPage {
   factory: String
   warehouse: String
-  language: String
+  language: string
   type :String
+
 
   recordMaster :any=[]
   recordFactory: any=[]
   recordType: any=[]
   recordWarehouse: any=[]
-
+  recordLanguage :any=[{name:"English"},{name:"中文"}];
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public httpclient: EsqHttpClient,public esqCache: EsqCacheHelper) {
-    this.factory = esqCache.getKeyValue("factoryCode")
-    this.initMaster();
+        this.initMaster();
+  this.esqCache.getKeyValue("factory").catch((data)=>{
+      console.log(data);
+    }).then((data)=>{
+      if(data!=undefined){
+        this.factory = data.id;
+        this.selectFactory();
+      }
+    });
+  this.esqCache.getKeyValue("type").catch((data)=>{
+      console.log(data);
+    }).then((data)=>{
+      if(data!=undefined){
+        this.type = data.id;
+      }
+    });
+
+  this.esqCache.getKeyValue("warehouse").catch((data)=>{
+      console.log(data);
+    }).then((data)=>{
+      if(data!=undefined){
+        this.warehouse = data.id;
+      }
+    });
+  this.esqCache.getKeyValue("language").catch((data)=>{
+      console.log(data);
+    }).then((data)=>{
+      if(data!=undefined){
+        this.language = data;
+      }
+    });    
   }
 
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingPage');
   }
@@ -46,6 +77,7 @@ export class SettingPage {
         this.recordMaster = itemGroup.Factory;
         this.recordFactory = itemGroup.Factory;
         this.recordWarehouse = itemGroup.Factory.location;
+
       }
       console.log("get master data end!");
     }, (errMsg) => {

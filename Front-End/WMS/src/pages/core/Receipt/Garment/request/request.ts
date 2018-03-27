@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { ConfirmLocationGarmentPage } from '../cfm-location-garment/cfm-location-garment';
 import { UUID } from 'angular2-uuid';
 import { AppConfig } from "../../../../../app/app.config";
+import { EsqCacheHelper } from "../../../../../providers/cacheHelper";
 
 @Component({
   selector: 'page-request',
@@ -13,31 +14,39 @@ import { AppConfig } from "../../../../../app/app.config";
 })
 export class RequestPage {
   storeCode: string;
-  transDate:Date;
-  reqType:string;
+  transDate: Date;
+  reqType: string;
+  businessTypeId: string;
 
-  randomGRN: any;
   nextPage: any;
   enterInput: any;
-  myParam: string;
-  inputFoundinOrder: boolean;
   dataset1: any = [];
   waitItems: any = [];
   leavePage: any;
 
   addFlag: Boolean;
   findFlag: Boolean;
+
+  factoryCode: string;
+  factoryId: string;
+  type: string;
+  typeId: string;
+  warehouse: string;
+  warehouseId: string;
+
   constructor(
     private statusBar: StatusBar,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public httpclient: EsqHttpClient,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private esqCache: EsqCacheHelper) {
     // If we navigated to this page, we will have an item available as a nav param
     this.storeCode = navParams.get('storeCode');
     this.reqType = navParams.get("reqType");
     this.transDate = navParams.get("transDate");
+    this.businessTypeId = navParams.get("businessTypeId");
 
     this.leavePage = WorkflowcontrolPage;
     this.nextPage = ConfirmLocationGarmentPage;
@@ -45,8 +54,19 @@ export class RequestPage {
     this.statusBar.show();
     this.statusBar.backgroundColorByHexString('#FFAABB');
 
-    // Let's populate this page with some filler content for funzies
-    this.inputFoundinOrder = false;
+    esqCache.getKeyValue("factory").then((data) => {
+      this.factoryCode = data.factoryCode;
+      this.factoryId = data.factoryId;
+    });
+    esqCache.getKeyValue("type").then((data) => {
+      this.typeId = data.id;
+      this.type = data.name;
+    });
+
+    esqCache.getKeyValue("warehouse").then((data) => {
+      this.warehouse = data.locationNo;
+      this.warehouseId = data.id;
+    });
 
     this.getWaitItems();
 
@@ -54,7 +74,7 @@ export class RequestPage {
 
   getWaitItems() {
     console.log("get easn wait sent to warehouse ucc");
-    let jsonFile = AppConfig.getBackEndUrl() +  "/Inquiry/getEASNSacnData";
+    let jsonFile = AppConfig.getBackEndUrl() + "/Inquiry/getEASNSacnData";
     let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0 };
     this.httpclient.getData<any>(jsonDict).subscribe((itemGroup) => {
       if (itemGroup) {
@@ -107,19 +127,17 @@ export class RequestPage {
           this.presentAlert();
         }
       }
-      this.enterInput ="";
+      this.enterInput = "";
     }
   }
 
   presentAlert() {
-    if (this.inputFoundinOrder == false) {
-      let alert = this.alertCtrl.create({
-        title: 'Barcode Not match',
-        subTitle: 'Your input is not found',
-        buttons: ['Dismiss']
-      });
-      alert.present();
-    }
+    let alert = this.alertCtrl.create({
+      title: 'Barcode Not match',
+      subTitle: 'Your input is not found',
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 
 
@@ -133,11 +151,22 @@ export class RequestPage {
   }
 
   save() {
-    this.navCtrl.push(this.nextPage);
+    //this.navCtrl.push(this.nextPage);
     console.log("save begin");
     let uuid = UUID.UUID();
-    let jsonFile = AppConfig.getBackEndUrl() +  "/Receipt/Create";
-    let grn = { "receipt": [{ "UniqueKey": "docNo","transCode":"KBR","transId": uuid,  "docNo": "GEG-G-GRN-" + new Date().getTime(), "reqUserId": "zhanghonl", "reqDate": this.getFormatDate(new Date().getTime()),"status":"D", "stock": this.dataset1 }] };
+    let jsonFile = AppConfig.getBackEndUrl() + "/Receipt/Create";
+    let grn = {
+      "receipt": {
+        "UniqueKey": "docNo", "transCode": "KBR", "transId": uuid, "docNo": "GEG-G-GRN-" + new Date().getTime(),
+        "storeCode": this.storeCode, "transDate": this.transDate,
+        "reqUserId": "zhanghonl", "reqDate": this.getFormatDate(new Date().getTime()), "status": "D",
+        "stock": this.dataset1
+      },
+      "workflow": {
+        "businessTypeId": this.businessTypeId, "factoryId": this.factoryId, "factoryCode": this.factoryCode,
+        "type": this.type, "typeId": this.typeId, "warehouse": this.warehouse, "warehouseId": this.warehouseId
+      }
+    };
     console.log(grn);
     let jsonDict = { "jsonFile": jsonFile, "pageIndex": 0, "pageSize": 0, "body": grn };
     this.httpclient.postData<any>(jsonDict).subscribe((itemGroup) => {
